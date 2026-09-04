@@ -73,6 +73,7 @@ function hero(logoWide, mark) {
     </div>
 
     <div class="wrap stage__body">
+      <div class="stage__left">
       <div class="scenes">
         ${map(scenes, (s, i) => `
         <article class="scene" data-active="${i === 0}">
@@ -81,8 +82,6 @@ function hero(logoWide, mark) {
           <p class="scene__body">${esc(s.body)}</p>
         </article>`)}
       </div>
-
-      <div class="stage__gap" aria-hidden="true"></div>
 
       <div class="chart" data-status="ok">
         <div class="chart__top">
@@ -110,6 +109,9 @@ function hero(logoWide, mark) {
         </div>
         <p class="chart__note">&nbsp;</p>
       </div>
+      </div>
+
+      <div class="stage__gap" aria-hidden="true"></div>
     </div>
 
     <div class="wrap stage__foot">

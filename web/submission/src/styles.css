@@ -159,7 +159,7 @@ section { padding: clamp(80px, 12vh, 150px) 0; position: relative; z-index: 1; }
 /* On wide screens the canvas takes the right-hand slice, so the coil composes
    beside the copy without the camera having to aim off-centre — which is what
    made the orbit swing. */
-@media (min-width: 981px) { #stage3d { left: 30%; right: 22%; } }
+@media (min-width: 981px) { #stage3d { left: 44%; right: 0; } }
 /* a scrim so the copy column always has ground to sit on, whatever the coil
    happens to be doing behind it */
 .stage::after {
@@ -168,7 +168,7 @@ section { padding: clamp(80px, 12vh, 150px) 0; position: relative; z-index: 1; }
     /* keeps the header and footer rows off the coil */
     linear-gradient(180deg, var(--ink) 0, rgba(8,7,10,.55) 11%, transparent 22%,
                     transparent 84%, rgba(8,7,10,.6) 94%, var(--ink) 100%),
-    linear-gradient(100deg, var(--ink) 2%, rgba(8,7,10,.82) 24%, rgba(8,7,10,.1) 46%, transparent 60%);
+    linear-gradient(100deg, var(--ink) 14%, rgba(8,7,10,.9) 34%, rgba(8,7,10,.24) 52%, transparent 68%);
 }
 #stage3d[data-ready="true"] { opacity: 1; }
 #stage3d canvas { display: block; width: 100%; height: 100%; }
@@ -193,15 +193,19 @@ section { padding: clamp(80px, 12vh, 150px) 0; position: relative; z-index: 1; }
 
 .stage__body {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, .5fr) minmax(0, 370px);
-  gap: clamp(20px, 3vw, 44px);
+  grid-template-columns: minmax(0, 500px) minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 64px);
   align-items: center;
 }
-/* the middle column is deliberately empty — it is the coil's ground */
+/* copy, with its readout directly beneath — the numbers belong to the sentence
+   above them, not to a separate panel across the screen */
+.stage__left { display: flex; flex-direction: column; gap: clamp(16px, 2.6vh, 30px);
+  transform: translateY(clamp(-40px, -3vh, -12px)); }
+/* the right column is deliberately empty — it is the coil's ground */
 .stage__gap { pointer-events: none; }
 
 /* scene copy, crossfading */
-.scenes { position: relative; min-height: 290px; }
+.scenes { position: relative; min-height: 240px; }
 .scene {
   position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;
   opacity: 0; transform: translate3d(0, 20px, 0); pointer-events: none;
@@ -210,7 +214,7 @@ section { padding: clamp(80px, 12vh, 150px) 0; position: relative; z-index: 1; }
 .scene[data-active="true"] { opacity: 1; transform: none; pointer-events: auto; }
 .scene__kicker { font-family: var(--mono); font-size: 10.5px; letter-spacing: .22em; color: var(--glow); margin-bottom: 14px; }
 .scene__title { font-family: var(--display); font-size: clamp(28px, 3.6vw, 46px); line-height: 1.05; margin: 0 0 16px; letter-spacing: -.022em; }
-.scene__body { font-size: clamp(15px, 1.4vw, 17px); color: var(--text-dim); margin: 0; max-width: 40ch;
+.scene__body { font-size: clamp(15px, 1.4vw, 17px); color: var(--text-dim); margin: 0; max-width: 44ch;
   text-shadow: 0 1px 18px rgba(8,7,10,.9); }
 
 /* the readout panel — an instrument, not a debug dump */
@@ -223,7 +227,7 @@ section { padding: clamp(80px, 12vh, 150px) 0; position: relative; z-index: 1; }
     rgba(11, 9, 14, .88);
   backdrop-filter: blur(18px) saturate(1.1);
   box-shadow: 0 24px 60px -30px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.045);
-  padding: clamp(16px, 2vw, 24px);
+  padding: clamp(13px, 1.5vw, 18px);
 }
 
 .chart__top { display: flex; justify-content: space-between; align-items: center; gap: 14px; }
@@ -244,17 +248,17 @@ section { padding: clamp(80px, 12vh, 150px) 0; position: relative; z-index: 1; }
 .chart[data-status="planning"] .pill { color: var(--glow); border-color: color-mix(in srgb, var(--glow) 40%, transparent); background: color-mix(in srgb, var(--glow) 10%, transparent); }
 .chart[data-status="degraded"] .pill { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 40%, transparent); background: color-mix(in srgb, var(--warn) 10%, transparent); }
 
-.readout { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; margin: 20px 0 14px; }
-.readout__big { font-family: var(--display); font-size: clamp(30px, 3.4vw, 44px); line-height: .95;
+.readout { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; margin: 12px 0 10px; }
+.readout__big { font-family: var(--display); font-size: clamp(26px, 2.6vw, 34px); line-height: .95;
   letter-spacing: -.035em; color: var(--text); font-variant-numeric: tabular-nums; }
 .readout__big u { text-decoration: none; font-size: .36em; letter-spacing: .02em; color: var(--text-faint); margin-left: 6px; }
 .readout__cap { text-align: right; font-family: var(--mono); font-size: 9px; letter-spacing: .12em;
   text-transform: uppercase; color: var(--text-faint); line-height: 1.7; }
-.readout__cap b { display: block; font-family: var(--display); font-size: 19px; font-weight: 500;
+.readout__cap b { display: block; font-family: var(--display); font-size: 16px; font-weight: 500;
   letter-spacing: -.02em; color: var(--signal); font-variant-numeric: tabular-nums; }
 
 .meterwrap { position: relative; }
-.meter { position: relative; height: 11px; border-radius: 99px; overflow: hidden; display: flex; gap: 2px;
+.meter { position: relative; height: 8px; border-radius: 99px; overflow: hidden; display: flex; gap: 2px;
   background: rgba(255,255,255,.045); box-shadow: inset 0 1px 2px rgba(0,0,0,.5); }
 .seg { width: calc(var(--w, 0) * 100%); min-width: 0; border-radius: 99px;
   background: linear-gradient(180deg, var(--glow-soft), var(--glow));
@@ -268,18 +272,17 @@ section { padding: clamp(80px, 12vh, 150px) 0; position: relative; z-index: 1; }
 .capline::after { content: ""; position: absolute; left: -3.5px; top: -3px; width: 6px; height: 6px;
   border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 4px rgba(124,196,255,.16); }
 
-.scaleline { display: flex; justify-content: space-between; font-family: var(--mono);
-  font-size: 9px; color: var(--text-faint); margin-top: 9px; letter-spacing: .1em; opacity: .7; }
+.scaleline { display: none; }
 
-.gws { margin-top: 18px; display: grid; gap: 2px; }
-.gw { display: grid; grid-template-columns: 58px 1fr auto 48px; gap: 10px; align-items: center;
-  padding: 6px 0; border-top: 1px solid rgba(255,255,255,.045); }
+.gws { margin-top: 12px; display: grid; gap: 0; }
+.gw { display: grid; grid-template-columns: 54px 1fr auto 44px; gap: 9px; align-items: center;
+  padding: 3px 0; border-top: 1px solid rgba(255,255,255,.045); }
 .gw:first-child { border-top: 0; }
-.gw__id { font-size: 12px; color: var(--text-dim); }
+.gw__id { font-size: 11px; color: var(--text-dim); }
 .gw__track { height: 3px; border-radius: 3px; background: rgba(255,255,255,.05); overflow: hidden; }
 .gw__fill { height: 100%; width: calc(var(--w, 0) * 100%); background: var(--glow); border-radius: 3px;
   transition: width .22s linear, background .4s linear; }
-.gw__kw { font-family: var(--display); font-size: 14px; font-weight: 500; letter-spacing: -.02em;
+.gw__kw { font-family: var(--display); font-size: 13px; font-weight: 500; letter-spacing: -.02em;
   color: var(--text); font-variant-numeric: tabular-nums; }
 .gw__st { text-align: right; font-family: var(--mono); font-size: 8.5px; letter-spacing: .14em;
   text-transform: uppercase; color: var(--ok); }
@@ -288,7 +291,7 @@ section { padding: clamp(80px, 12vh, 150px) 0; position: relative; z-index: 1; }
 .chart[data-status="over"] .gw__fill { background: var(--bad); }
 .chart[data-status="over"] .gw__st { color: var(--bad); }
 
-.chart__note { margin: 16px 0 0; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.05);
+.chart__note { margin: 10px 0 0; padding-top: 8px; border-top: 1px solid rgba(255,255,255,.05);
   font-family: var(--mono); font-size: 9.5px; color: var(--text-faint); letter-spacing: .04em; min-height: 1.4em; }
 
 .stage__foot { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
@@ -517,6 +520,8 @@ footer { padding: clamp(70px, 10vh, 120px) 0; border-top: 1px solid var(--hairli
 
 @media (max-width: 980px) {
   .stage__body { grid-template-columns: 1fr; gap: 22px; align-content: center; }
+  .stage__left { transform: none; }
+  .stage__gap { display: none; }
   .scenes { min-height: 200px; }
   .sticky2 { grid-template-columns: 1fr; }
   .sticky2__label { position: static; }
