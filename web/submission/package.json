@@ -1,0 +1,16 @@
+{
+  "name": "filament-os-submission",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Project site for FILAMENT OS — Code2Create 7.0, ACM-VIT.",
+  "type": "module",
+  "engines": { "node": "22.x" },
+  "scripts": {
+    "build": "node build.mjs",
+    "start": "node build.mjs && node server.mjs",
+    "dev": "node server.mjs --watch",
+    "serve": "node server.mjs"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

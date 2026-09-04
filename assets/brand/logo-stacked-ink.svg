@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 275 118" width="275" height="118" role="img" aria-label="Filament">
+  <title>Filament</title>
+  <defs>
+    <linearGradient id="wire-si" x1="8" y1="52" x2="56" y2="14" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4a5568"/>
+      <stop offset=".38" stop-color="#8a7a6a"/>
+      <stop offset=".72" stop-color="#ff9f45"/>
+      <stop offset="1" stop-color="#ffd9a0"/>
+    </linearGradient>
+    <radialGradient id="halo-si" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+      gradientTransform="translate(49.63 15.74) scale(17)">
+      <stop offset="0" stop-color="#ffb45c" stop-opacity=".55"/>
+      <stop offset=".55" stop-color="#ff9f45" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#ff9f45" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g transform="translate(105.5 0)">
+    <circle cx="49.63" cy="15.74" r="17" fill="url(#halo-si)"/>
+    <path d="M 8.93 53.48 L 17 46 C 3.27 40.32 21.53 23.39 26.17 37.5 C 12.44 31.82 30.7 14.89 35.33 29 C 21.61 23.32 39.87 6.39 44.5 20.5 L 49.63 15.74" fill="none" stroke="url(#wire-si)" stroke-width="4"
+      stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="49.63" cy="15.74" r="4.6" fill="#ffd9a0"/>
+  </g>
+  <g transform="translate(4 86)">
+    <g fill="none" stroke="#241f1a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M 0 0 L 0 28 M 0 0 L 17 0 M 0 13 L 13.26 13"/><path transform="translate(26.5 0)" d="M 0 0 L 0 28"/><path transform="translate(36 0)" d="M 0 0 L 0 28 M 0 28 L 15 28"/><path transform="translate(60.5 0)" d="M 0 28 L 10 0 M 10 0 L 20 28 M 6.78 19 L 13.22 19"/><path transform="translate(90 0)" d="M 0 28 L 0 0 M 0 0 L 11 16.5 M 11 16.5 L 22 0 M 22 0 L 22 28"/><path transform="translate(121.5 0)" d="M 0 0 L 0 28 M 0 0 L 15 0 M 0 13 L 11.7 13 M 0 28 L 15 28"/><path transform="translate(146 0)" d="M 0 28 L 0 0 M 0 0 L 18 28 M 18 28 L 18 0"/><path transform="translate(173.5 0)" d="M 0 0 L 18 0 M 9 0 L 9 28"/><path transform="translate(222.5 0)" d="M 10.5 0 A 10.5 14 0 1 1 10.5 28 A 10.5 14 0 1 1 10.5 0"/><path transform="translate(253 0)" d="M 14 7 A 7 7 0 1 0 7 14 A 7 7 0 1 1 0 21"/></g>
+  </g>
+</svg>

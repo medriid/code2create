@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Filament">
+  <title>Filament</title>
+  <rect width="64" height="64" rx="14" fill="#0d0b10"/>
+  <defs>
+    <linearGradient id="fw" x1="10" y1="50" x2="54" y2="16" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4a5568"/>
+      <stop offset=".38" stop-color="#8a7a6a"/>
+      <stop offset=".72" stop-color="#ff9f45"/>
+      <stop offset="1" stop-color="#ffd9a0"/>
+    </linearGradient>
+  </defs>
+  <path d="M 9.15 50.84 L 16 45 C 0.94 38.12 25.1 17.54 29.5 33.5 C 14.44 26.62 38.6 6.04 43 22 L 48.71 17.14" fill="none" stroke="url(#fw)" stroke-width="6.5"
+    stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="48.71" cy="17.14" r="6" fill="#ffd9a0"/>
+</svg>

@@ -1,0 +1,6 @@
+node_modules/
+.DS_Store
+*.log
+
+# dist/ is intentionally NOT ignored. The built page is the deliverable, and it
+# has to open off a USB stick on a laptop with no toolchain.

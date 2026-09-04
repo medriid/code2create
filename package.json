@@ -1,0 +1,16 @@
+{
+  "name": "code2create",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FILAMENT OS — Code2Create 7.0, ACM-VIT. Preparation repository.",
+  "type": "module",
+  "engines": { "node": "22.x" },
+  "scripts": {
+    "build": "node web/submission/build.mjs",
+    "start": "node web/submission/build.mjs && node web/submission/server.mjs",
+    "dev": "node web/submission/server.mjs --watch",
+    "brand": "node assets/brand/build.mjs && node assets/brand/build-preview.mjs"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
