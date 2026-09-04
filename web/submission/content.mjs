@@ -366,6 +366,30 @@ filament/v1/site/{site_id}/event/capacity`,
     close: "A hardware failure during a live demo is either a disaster or the exact thing you were about to demonstrate on purpose. Which one depends entirely on whether you rehearsed it.",
   },
 
+  // Counted up as they scroll in.
+  stats: [
+    { n: 5,   suffix: "",     label: "gateways", note: "each fails independently" },
+    { n: 30,  suffix: "",     label: "devices", note: "emulated, plus one real" },
+    { n: 1,   suffix: " kW",  label: "hard cap", note: "never a suggestion", decimals: 1, from: 5 },
+    { n: 800, suffix: " ms",  label: "planner wall clock", note: "then greedy ships" },
+    { n: 12,  suffix: "",     label: "five-minute slots", note: "one hour of lookahead" },
+    { n: 0,   suffix: " V",   label: "mains switched", note: "by design" },
+  ],
+
+  // Full-bleed breaks between sections. The argument, in one line each.
+  quotes: [
+    { t: "Monitoring tells us we are failing. It does not decide, act, or prove recovery.", cite: "why a dashboard is not a control system" },
+    { t: "A silent load is not a load of zero.", cite: "the correctness decision the whole system turns on" },
+    { t: "The fallback is not the lesser path. It is the safety mechanism.", cite: "why greedy is built first" },
+    { t: "It declares infeasible. It never fabricates compliance.", cite: "acceptance criterion six" },
+  ],
+
+  // Every reason a device can be told to change state. Scrolls as a ticker.
+  marquee: [
+    "cap_reduction", "cap_release", "deadline_risk", "protected",
+    "gateway_stale", "min_run_hold", "operator_protect", "replan",
+  ],
+
   rules: {
     eyebrow: "The rules",
     title: "This site is preparation. The code is not written yet.",

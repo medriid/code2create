@@ -4,3 +4,13 @@ node_modules/
 
 # dist/ is intentionally NOT ignored. The built page is the deliverable, and it
 # has to open off a USB stick on a laptop with no toolchain.
+
+# Disposable learning exercises. Never committed — that is the whole point.
+# Written, understood, then deleted before the event starts.
+exercises/
+
+# Preparation material: understanding, frozen specs, process cards.
+# Permitted to write, deliberately not committed — the repo stays clean of
+# anything that could read as a head start. The empty structure stays tracked.
+docs/*.md
+docs/**/*.md

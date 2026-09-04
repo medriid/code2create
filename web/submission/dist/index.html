@@ -12,7 +12,7 @@
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IkZpbGFtZW50Ij4KICA8dGl0bGU+RmlsYW1lbnQ8L3RpdGxlPgogIDxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgcng9IjE0IiBmaWxsPSIjMGQwYjEwIi8+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImZ3IiB4MT0iMTAiIHkxPSI1MCIgeDI9IjU0IiB5Mj0iMTYiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNGE1NTY4Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iLjM4IiBzdG9wLWNvbG9yPSIjOGE3YTZhIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iLjcyIiBzdG9wLWNvbG9yPSIjZmY5ZjQ1Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZDlhMCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHBhdGggZD0iTSA5LjE1IDUwLjg0IEwgMTYgNDUgQyAwLjk0IDM4LjEyIDI1LjEgMTcuNTQgMjkuNSAzMy41IEMgMTQuNDQgMjYuNjIgMzguNiA2LjA0IDQzIDIyIEwgNDguNzEgMTcuMTQiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNmdykiIHN0cm9rZS13aWR0aD0iNi41IgogICAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPGNpcmNsZSBjeD0iNDguNzEiIGN5PSIxNy4xNCIgcj0iNiIgZmlsbD0iI2ZmZDlhMCIvPgo8L3N2Zz4K">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>/* ============================================================ tokens ===== */
 
 :root {
@@ -23,7 +23,6 @@
   --hairline-2: #322b3b;
 
   --wire: #4a5568;
-  --wire-warm: #8a7a6a;
   --glow: #ff9f45;
   --glow-soft: #ffd9a0;
   --signal: #7cc4ff;
@@ -40,20 +39,15 @@
   --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-  --measure: 1120px;
-  --gut: clamp(20px, 5vw, 64px);
+  --measure: 1180px;
+  --gut: clamp(20px, 5vw, 68px);
 
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --slow: 1100ms;
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
 }
 
 * { box-sizing: border-box; }
-
-html {
-  /* Deliberately not smooth: the hero maps scroll position to state 1:1, and
-     an animated scroll fights the scrub and lands the reader mid-transition. */
-  -webkit-text-size-adjust: 100%;
-}
+html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
@@ -61,537 +55,489 @@ body {
   color: var(--text);
   font-family: var(--sans);
   font-size: 17px;
-  line-height: 1.65;
+  line-height: 1.62;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-/* A single warm source, low and to the left, like the mark. */
+/* A single warm source, and a cursor-tracked one that only ever whispers. */
 body::before {
   content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background:
-    radial-gradient(90ch 70ch at 12% 8%, rgba(255, 159, 69, 0.055), transparent 62%),
-    radial-gradient(70ch 60ch at 88% 88%, rgba(124, 196, 255, 0.035), transparent 60%);
+    radial-gradient(58vw 44vw at 12% 6%, rgba(255, 159, 69, 0.055), transparent 62%),
+    radial-gradient(46vw 40vw at 88% 92%, rgba(124, 196, 255, 0.032), transparent 60%);
 }
+.cursorglow {
+  position: fixed; z-index: 0; pointer-events: none;
+  width: 46vmax; height: 46vmax; translate: -50% -50%;
+  left: var(--mx, 50%); top: var(--my, 50%);
+  background: radial-gradient(circle, rgba(255, 159, 69, 0.038), transparent 62%);
+  transition: opacity .6s var(--ease);
+  opacity: 0;
+}
+.has-pointer .cursorglow { opacity: 1; }
 
 ::selection { background: rgba(255, 159, 69, 0.26); color: #fff; }
 
+/* scroll progress — a filament that fills as you read */
+.progress {
+  position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 60;
+  background: linear-gradient(90deg, var(--wire), var(--glow) 70%, var(--glow-soft));
+  transform: scaleX(var(--read, 0)); transform-origin: 0 50%;
+}
+
 /* ========================================================== primitives === */
 
-.wrap {
-  width: min(100% - var(--gut) * 2, var(--measure));
-  margin-inline: auto;
-  position: relative;
-  z-index: 1;
-}
+.wrap { width: min(100% - var(--gut) * 2, var(--measure)); margin-inline: auto; position: relative; z-index: 1; }
+.wrap--narrow { max-width: 760px; }
 
 .eyebrow {
-  font-family: var(--mono);
-  font-size: 11.5px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--glow);
-  margin: 0 0 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--glow); margin: 0 0 18px;
+  display: flex; align-items: center; gap: 12px;
 }
-.eyebrow::before {
-  content: "";
-  width: 26px;
-  height: 1px;
-  background: linear-gradient(90deg, var(--glow), transparent);
-  flex: none;
-}
+.eyebrow::before { content: ""; width: 24px; height: 1px; background: currentColor; flex: none; opacity: .7; }
 
-h1, h2, h3 {
-  font-family: var(--display);
-  font-weight: 500;
-  letter-spacing: -0.018em;
-  line-height: 1.08;
-  margin: 0;
-  text-wrap: balance;
-}
+h1, h2, h3 { font-family: var(--display); font-weight: 500; letter-spacing: -.02em; line-height: 1.06; margin: 0; }
+h2 { font-size: clamp(32px, 5vw, 60px); }
+h3 { font-size: clamp(19px, 2vw, 23px); line-height: 1.25; letter-spacing: -.012em; }
 
-h2 { font-size: clamp(30px, 4.4vw, 52px); }
-h3 { font-size: clamp(19px, 2vw, 23px); line-height: 1.25; }
+.lede { font-size: clamp(18px, 2.1vw, 23px); line-height: 1.5; color: var(--text-dim); max-width: 60ch; margin: 24px 0 0; text-wrap: pretty; }
 
-.lede {
-  font-size: clamp(18px, 2.1vw, 22px);
-  line-height: 1.55;
-  color: var(--text-dim);
-  max-width: 62ch;
-  margin: 22px 0 0;
-  text-wrap: pretty;
-}
-
-p { margin: 0 0 1.1em; color: var(--text-dim); max-width: 68ch; text-wrap: pretty; }
-p strong, strong { color: var(--text); font-weight: 600; }
+p { margin: 0 0 1.1em; color: var(--text-dim); max-width: 66ch; text-wrap: pretty; }
+strong { color: var(--text); font-weight: 600; }
 em { color: var(--glow-soft); font-style: italic; }
-
-a { color: var(--signal); text-decoration-color: rgba(124, 196, 255, 0.35); text-underline-offset: 3px; }
+a { color: var(--signal); text-underline-offset: 3px; text-decoration-color: rgba(124,196,255,.35); }
 a:hover { text-decoration-color: currentColor; }
+code { font-family: var(--mono); font-size: .88em; }
 
-code, .mono { font-family: var(--mono); font-size: 0.88em; }
+section { padding: clamp(80px, 12vh, 150px) 0; position: relative; z-index: 1; }
+.hair { border-top: 1px solid var(--hairline); }
 
-section { padding: clamp(72px, 11vh, 128px) 0; position: relative; z-index: 1; }
-section + section { border-top: 1px solid var(--hairline); }
+/* ============================================== motion: word-by-word ==== */
+/* Headlines are split into words at build time. They rise, unblur and settle
+   one after another — the "slowly opening" feel, applied to language. */
 
-.rule {
-  height: 1px;
-  background: linear-gradient(90deg, var(--hairline-2), transparent);
-  margin: 40px 0;
+.w { display: inline-block; }
+.w > i {
+  display: inline-block; font-style: inherit;
+  opacity: 0; transform: translate3d(0, .55em, 0) rotate(2.2deg); filter: blur(7px);
+  transition: opacity .95s var(--ease), transform 1.05s var(--ease), filter .95s var(--ease);
+  transition-delay: calc(var(--wi) * 55ms);
 }
+.in .w > i, .w.in > i { opacity: 1; transform: none; filter: none; }
 
-/* ===================================================== reveal on scroll == */
-/* Content starts closed and opens slowly as it enters the viewport. */
+/* ================================================= motion: reveals ====== */
 
-.reveal {
-  opacity: 0;
-  transform: translate3d(0, 26px, 0);
-  filter: blur(6px);
-  transition:
-    opacity var(--slow) var(--ease),
-    transform var(--slow) var(--ease),
-    filter var(--slow) var(--ease);
-  transition-delay: calc(var(--i, 0) * 90ms);
-  will-change: opacity, transform;
-}
-.reveal.in { opacity: 1; transform: none; filter: none; }
-
-/* Things that literally open rather than fade. */
-.open-y {
-  clip-path: inset(0 0 100% 0);
-  opacity: 0;
-  transition: clip-path 1400ms var(--ease), opacity 700ms var(--ease);
+.rv {
+  opacity: 0; transform: translate3d(0, 28px, 0); filter: blur(6px);
+  transition: opacity 1s var(--ease), transform 1.1s var(--ease), filter 1s var(--ease);
   transition-delay: calc(var(--i, 0) * 90ms);
 }
+.rv.in { opacity: 1; transform: none; filter: none; }
+
+.rv-left { opacity: 0; transform: translate3d(-34px, 0, 0);
+  transition: opacity .95s var(--ease), transform 1.1s var(--ease);
+  transition-delay: calc(var(--i, 0) * 80ms); }
+.rv-left.in { opacity: 1; transform: none; }
+
+.rv-scale { opacity: 0; transform: scale(.94) translate3d(0, 20px, 0);
+  transition: opacity .9s var(--ease), transform 1.1s var(--ease);
+  transition-delay: calc(var(--i, 0) * 70ms); }
+.rv-scale.in { opacity: 1; transform: none; }
+
+.open-y { clip-path: inset(0 0 100% 0); opacity: 0;
+  transition: clip-path 1.4s var(--ease), opacity .7s var(--ease);
+  transition-delay: calc(var(--i, 0) * 90ms); }
 .open-y.in { clip-path: inset(0 0 0 0); opacity: 1; }
 
 .open-x { transform: scaleX(0); transform-origin: 0 50%;
-  transition: transform 1200ms var(--ease); transition-delay: calc(var(--i, 0) * 90ms); }
+  transition: transform 1.2s var(--ease); transition-delay: calc(var(--i, 0) * 90ms); }
 .open-x.in { transform: scaleX(1); }
+
+.rule { height: 1px; background: linear-gradient(90deg, var(--hairline-2), transparent); margin: 44px 0; }
 
 /* =============================================================== hero ==== */
 
-.journey { height: 620vh; position: relative; }
+.journey { height: 780vh; position: relative; }
 
 .stage {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  min-height: 620px;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  padding: clamp(18px, 3vh, 34px) 0 clamp(20px, 4vh, 40px);
+  position: sticky; top: 0; height: 100svh; min-height: 620px;
+  display: grid; grid-template-rows: auto 1fr auto;
+  padding: clamp(18px, 3vh, 32px) 0 clamp(18px, 3.5vh, 36px);
   overflow: hidden;
 }
 
-.stage__glow {
-  position: absolute;
-  left: 50%;
-  top: 42%;
-  width: 130vmin;
-  height: 130vmin;
-  translate: -50% -50%;
-  pointer-events: none;
-  background: radial-gradient(circle, rgba(255, 159, 69, calc(0.05 + var(--heat, 0) * 0.16)), transparent 58%);
-  transition: background 240ms linear;
+/* the 3D figure sits behind everything, full bleed */
+#stage3d { position: absolute; inset: 0; z-index: 0; opacity: 0; transition: opacity 1.6s var(--ease) .3s; }
+/* On wide screens the canvas takes the right-hand slice, so the coil composes
+   beside the copy without the camera having to aim off-centre — which is what
+   made the orbit swing. */
+@media (min-width: 981px) { #stage3d { left: 30%; right: 22%; } }
+/* a scrim so the copy column always has ground to sit on, whatever the coil
+   happens to be doing behind it */
+.stage::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    /* keeps the header and footer rows off the coil */
+    linear-gradient(180deg, var(--ink) 0, rgba(8,7,10,.55) 11%, transparent 22%,
+                    transparent 84%, rgba(8,7,10,.6) 94%, var(--ink) 100%),
+    linear-gradient(100deg, var(--ink) 2%, rgba(8,7,10,.82) 24%, rgba(8,7,10,.1) 46%, transparent 60%);
 }
+#stage3d[data-ready="true"] { opacity: 1; }
+#stage3d canvas { display: block; width: 100%; height: 100%; }
 
-.stage__head { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.stage__brand { display: flex; align-items: center; gap: 14px; }
-.stage__brand svg { width: 40px; height: 40px; flex: none; }
-.stage__name { font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-dim); }
-.stage__event { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--text-faint); text-align: right; }
+.stage > .wrap, .titlecard { position: relative; z-index: 2; }
+
+/* Hand-off. Over the last slice of the journey the hero lifts and clears, so
+   the coil ending and the page continuing are one movement rather than a
+   sticky element abruptly letting go. Driven by scroll, never transitioned. */
+.stage { --exit: 0; }
+.stage__head, .stage__body, .stage__foot {
+  opacity: calc(1 - var(--exit));
+  transform: translate3d(0, calc(var(--exit) * -72px), 0);
+}
+.stage::after { opacity: calc(1 - var(--exit)); }
+
+.stage__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.stage__brand { display: flex; align-items: center; gap: 13px; }
+.stage__brand svg { width: 38px; height: 38px; flex: none; }
+.stage__name { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--text-dim); }
+.stage__event { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; color: var(--text-faint); text-align: right; line-height: 1.9; }
 
 .stage__body {
   display: grid;
-  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
-  gap: clamp(24px, 5vw, 72px);
+  grid-template-columns: minmax(0, 1fr) minmax(0, .5fr) minmax(0, 370px);
+  gap: clamp(20px, 3vw, 44px);
   align-items: center;
 }
+/* the middle column is deliberately empty — it is the coil's ground */
+.stage__gap { pointer-events: none; }
 
-/* --- the scene copy, crossfading ---------------------------------------- */
-
-.scenes { position: relative; min-height: 300px; }
-
+/* scene copy, crossfading */
+.scenes { position: relative; min-height: 290px; }
 .scene {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  opacity: 0;
-  transform: translate3d(0, 18px, 0);
-  transition: opacity 620ms var(--ease), transform 620ms var(--ease);
-  pointer-events: none;
+  position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;
+  opacity: 0; transform: translate3d(0, 20px, 0); pointer-events: none;
+  transition: opacity .6s var(--ease), transform .7s var(--ease);
 }
 .scene[data-active="true"] { opacity: 1; transform: none; pointer-events: auto; }
+.scene__kicker { font-family: var(--mono); font-size: 10.5px; letter-spacing: .22em; color: var(--glow); margin-bottom: 14px; }
+.scene__title { font-family: var(--display); font-size: clamp(28px, 3.6vw, 46px); line-height: 1.05; margin: 0 0 16px; letter-spacing: -.022em; }
+.scene__body { font-size: clamp(15px, 1.4vw, 17px); color: var(--text-dim); margin: 0; max-width: 40ch;
+  text-shadow: 0 1px 18px rgba(8,7,10,.9); }
 
-.scene__kicker {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  color: var(--glow);
-  margin-bottom: 14px;
-}
-.scene__title { font-family: var(--display); font-size: clamp(26px, 3.4vw, 42px); line-height: 1.1; margin: 0 0 16px; }
-.scene__body { font-size: clamp(15px, 1.5vw, 17px); color: var(--text-dim); margin: 0; max-width: 46ch; }
-
-/* --- the chart ---------------------------------------------------------- */
+/* the readout panel — an instrument, not a debug dump */
 
 .chart {
-  border: 1px solid var(--hairline);
-  border-radius: 18px;
-  background: linear-gradient(180deg, rgba(20, 17, 26, 0.85), rgba(13, 11, 16, 0.85));
-  padding: clamp(16px, 2.4vw, 26px);
-  position: relative;
+  border: 1px solid var(--hairline-2);
+  border-radius: 20px;
+  background:
+    radial-gradient(120% 90% at 50% -20%, rgba(255,159,69,.07), transparent 62%),
+    rgba(11, 9, 14, .88);
+  backdrop-filter: blur(18px) saturate(1.1);
+  box-shadow: 0 24px 60px -30px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.045);
+  padding: clamp(16px, 2vw, 24px);
 }
 
-.chart__top {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 14px;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-  margin-bottom: 18px;
-}
-.chart__status { color: var(--ok); transition: color 400ms linear; }
-.chart[data-status="over"] .chart__status { color: var(--bad); }
-.chart[data-status="planning"] .chart__status { color: var(--glow); }
-.chart[data-status="degraded"] .chart__status { color: var(--warn); }
+.chart__top { display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+.chart__label { font-family: var(--mono); font-size: 9px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--text-faint); }
 
-/* stacked site meter: five homes summed against one cap */
-
-.meter {
-  position: relative;
-  height: 58px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--hairline);
-  overflow: hidden;
-  display: flex;
-  align-items: stretch;
+.pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+  padding: 5px 10px 5px 8px; border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--ok) 35%, transparent);
+  background: color-mix(in srgb, var(--ok) 10%, transparent);
+  color: var(--ok); transition: color .4s, border-color .4s, background .4s;
 }
+.pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor;
+  box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 22%, transparent); }
+.chart[data-status="over"]     .pill { color: var(--bad);  border-color: color-mix(in srgb, var(--bad) 40%, transparent);  background: color-mix(in srgb, var(--bad) 12%, transparent); }
+.chart[data-status="planning"] .pill { color: var(--glow); border-color: color-mix(in srgb, var(--glow) 40%, transparent); background: color-mix(in srgb, var(--glow) 10%, transparent); }
+.chart[data-status="degraded"] .pill { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 40%, transparent); background: color-mix(in srgb, var(--warn) 10%, transparent); }
 
-.seg {
-  width: calc(var(--w, 0) * 100%);
-  transition: width 200ms linear, background 400ms linear, opacity 300ms linear;
-  background: linear-gradient(180deg, rgba(255, 217, 160, 0.95), var(--glow));
-  border-right: 1px solid rgba(8, 7, 10, 0.55);
-  min-width: 0;
-}
-.seg:last-of-type { border-right: 0; }
+.readout { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; margin: 20px 0 14px; }
+.readout__big { font-family: var(--display); font-size: clamp(30px, 3.4vw, 44px); line-height: .95;
+  letter-spacing: -.035em; color: var(--text); font-variant-numeric: tabular-nums; }
+.readout__big u { text-decoration: none; font-size: .36em; letter-spacing: .02em; color: var(--text-faint); margin-left: 6px; }
+.readout__cap { text-align: right; font-family: var(--mono); font-size: 9px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--text-faint); line-height: 1.7; }
+.readout__cap b { display: block; font-family: var(--display); font-size: 19px; font-weight: 500;
+  letter-spacing: -.02em; color: var(--signal); font-variant-numeric: tabular-nums; }
+
+.meterwrap { position: relative; }
+.meter { position: relative; height: 11px; border-radius: 99px; overflow: hidden; display: flex; gap: 2px;
+  background: rgba(255,255,255,.045); box-shadow: inset 0 1px 2px rgba(0,0,0,.5); }
+.seg { width: calc(var(--w, 0) * 100%); min-width: 0; border-radius: 99px;
+  background: linear-gradient(180deg, var(--glow-soft), var(--glow));
+  transition: width .22s linear, background .4s linear, opacity .4s linear; }
 .chart[data-status="over"] .seg { background: linear-gradient(180deg, #ffb0b0, var(--bad)); }
-.chart[data-status="planning"] .seg { background: linear-gradient(180deg, var(--glow-soft), var(--glow)); opacity: .8; }
-.seg[data-stale="true"] {
-  background: repeating-linear-gradient(135deg, rgba(255,196,107,.55) 0 5px, rgba(255,196,107,.12) 5px 10px);
-}
+.chart[data-status="planning"] .seg { opacity: .8; }
+.seg[data-stale="true"] { background: repeating-linear-gradient(135deg, rgba(255,196,107,.6) 0 4px, rgba(255,196,107,.14) 4px 8px); }
 
-.capline {
-  position: absolute;
-  top: -6px;
-  bottom: -6px;
-  left: calc(var(--cap, .9) * 100%);
-  width: 0;
-  border-left: 2px dashed var(--signal);
-  transition: left 220ms linear;
-  z-index: 2;
-}
-.capline::after {
-  content: "cap " attr(data-kw) " kW";
-  position: absolute;
-  left: 8px;
-  top: -20px;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: .1em;
-  color: var(--signal);
-  white-space: nowrap;
-}
-.meterwrap { position: relative; padding-top: 22px; }
+.capline { position: absolute; top: -7px; bottom: -7px; left: calc(var(--cap, .9) * 100%);
+  border-left: 1.5px dashed var(--signal); transition: left .22s linear; z-index: 2; }
+.capline::after { content: ""; position: absolute; left: -3.5px; top: -3px; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 4px rgba(124,196,255,.16); }
 
-.scaleline {
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--text-faint);
-  margin-top: 7px;
-  letter-spacing: .08em;
-}
+.scaleline { display: flex; justify-content: space-between; font-family: var(--mono);
+  font-size: 9px; color: var(--text-faint); margin-top: 9px; letter-spacing: .1em; opacity: .7; }
 
-/* per-gateway rows */
-.gws { margin-top: 22px; display: grid; gap: 9px; }
-.gw {
-  display: grid;
-  grid-template-columns: 62px 1fr 62px 58px;
-  gap: 12px;
-  align-items: center;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: .06em;
-  color: var(--text-faint);
-}
-.gw__id { color: var(--text-dim); }
-.gw__track { height: 5px; border-radius: 3px; background: rgba(255,255,255,.05); overflow: hidden; }
-.gw__fill {
-  height: 100%;
-  width: calc(var(--w, 0) * 100%);
-  background: var(--glow);
-  border-radius: 3px;
-  transition: width 200ms linear, background 400ms linear;
-}
-.gw__kw { text-align: right; color: var(--text-dim); font-variant-numeric: tabular-nums; }
-.gw__st { text-align: right; color: var(--ok); }
-.gw[data-stale="true"] .gw__st { color: var(--warn); }
+.gws { margin-top: 18px; display: grid; gap: 2px; }
+.gw { display: grid; grid-template-columns: 58px 1fr auto 48px; gap: 10px; align-items: center;
+  padding: 6px 0; border-top: 1px solid rgba(255,255,255,.045); }
+.gw:first-child { border-top: 0; }
+.gw__id { font-size: 12px; color: var(--text-dim); }
+.gw__track { height: 3px; border-radius: 3px; background: rgba(255,255,255,.05); overflow: hidden; }
+.gw__fill { height: 100%; width: calc(var(--w, 0) * 100%); background: var(--glow); border-radius: 3px;
+  transition: width .22s linear, background .4s linear; }
+.gw__kw { font-family: var(--display); font-size: 14px; font-weight: 500; letter-spacing: -.02em;
+  color: var(--text); font-variant-numeric: tabular-nums; }
+.gw__st { text-align: right; font-family: var(--mono); font-size: 8.5px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ok); }
+.gw[data-stale="true"] .gw__st, .gw[data-stale="true"] .gw__id { color: var(--warn); }
 .gw[data-stale="true"] .gw__fill { background: repeating-linear-gradient(135deg, var(--warn) 0 4px, rgba(255,196,107,.2) 4px 8px); }
-.gw[data-stale="true"] .gw__id { color: var(--warn); }
 .chart[data-status="over"] .gw__fill { background: var(--bad); }
 .chart[data-status="over"] .gw__st { color: var(--bad); }
 
-.chart__note {
-  margin: 34px 0 0;
-  font-family: var(--mono);
-  font-size: 11.5px;
-  color: var(--text-faint);
-  letter-spacing: 0.04em;
-  min-height: 1.4em;
-}
-
-/* --- progress + hint ---------------------------------------------------- */
+.chart__note { margin: 16px 0 0; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.05);
+  font-family: var(--mono); font-size: 9.5px; color: var(--text-faint); letter-spacing: .04em; min-height: 1.4em; }
 
 .stage__foot { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
-
-.ticks { display: flex; gap: 7px; }
-.tick { width: 26px; height: 2px; border-radius: 2px; background: var(--hairline-2); transition: background 300ms linear; }
+.ticks { display: flex; gap: 6px; }
+.tick { width: 24px; height: 2px; border-radius: 2px; background: var(--hairline-2); transition: background .3s linear; }
 .tick[data-on="true"] { background: var(--glow); }
-
-.hint {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
+.hint { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--text-faint); display: flex; align-items: center; gap: 9px; }
 .hint span { animation: nudge 2.4s var(--ease) infinite; }
-@keyframes nudge { 0%, 100% { transform: translateY(0); opacity: .55 } 50% { transform: translateY(4px); opacity: 1 } }
+@keyframes nudge { 0%,100% { transform: translateY(0); opacity: .5 } 50% { transform: translateY(4px); opacity: 1 } }
 
-/* --- the title card that opens over the first scene ---------------------- */
-
+/* The opening frame. Left-weighted on purpose: the coil is visible from the
+   first second, so the title reads as its label rather than a lid over it. */
 .titlecard {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  z-index: 3;
-  background: linear-gradient(180deg, var(--ink) 30%, rgba(8, 7, 10, 0.86));
-  opacity: var(--title-o, 1);
-  pointer-events: none;
-  transition: opacity 200ms linear;
+  position: absolute; inset: 0; z-index: 5; display: grid; align-items: center;
+  opacity: var(--title-o, 1); pointer-events: none;
+  background: linear-gradient(96deg, var(--ink) 16%, rgba(8,7,10,.97) 42%, rgba(8,7,10,.6) 64%, rgba(8,7,10,.12) 86%);
 }
-.titlecard__inner { transform: scale(calc(1 - (1 - var(--title-o, 1)) * 0.05)); }
-.titlecard svg { width: clamp(280px, 46vw, 460px); height: auto; }
-.titlecard p { color: var(--text-dim); margin: 26px auto 0; font-size: clamp(15px, 1.7vw, 19px); max-width: 46ch; }
-.titlecard .sub { color: var(--text-faint); font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; margin-top: 14px; }
-
-/* ============================================================= blocks ==== */
-
-.head { max-width: 74ch; margin-bottom: clamp(40px, 6vh, 68px); }
-
-.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(18px, 2.4vw, 30px); }
-
-.card {
-  border: 1px solid var(--hairline);
-  border-radius: 16px;
-  background: linear-gradient(180deg, rgba(20, 17, 26, 0.6), rgba(13, 11, 16, 0.6));
-  padding: clamp(20px, 2.4vw, 28px);
-  transition: border-color 400ms var(--ease), transform 400ms var(--ease);
-}
-.card:hover { border-color: var(--hairline-2); transform: translateY(-2px); }
-.card h3 { margin-bottom: 12px; }
-.card p { font-size: 15.5px; margin-bottom: 0; }
-.card__n {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  color: var(--glow);
-  display: block;
-  margin-bottom: 14px;
-}
-.card__key {
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid var(--hairline);
-  font-size: 14.5px;
-  color: var(--glow-soft);
+/* the inner box carries the lift; the meta line stays outside it, because a
+   transform would otherwise become its containing block */
+.titlecard__inner { max-width: 640px; transform: translate3d(0, calc((1 - var(--title-o, 1)) * -26px), 0); }
+.titlecard__name { margin: 0; line-height: 1; }
+.titlecard__name svg { width: clamp(260px, 33vw, 430px); height: auto; display: block; }
+.titlecard__rule { height: 1px; background: linear-gradient(90deg, var(--glow), var(--hairline-2) 70%, transparent);
+  margin: 30px 0 26px; max-width: 420px; }
+.titlecard__say { font-size: clamp(17px, 2.1vw, 25px); line-height: 1.42; color: var(--text);
+  max-width: 22ch; margin: 0 0 16px; letter-spacing: -.012em; }
+.titlecard__spec { font-family: var(--mono); font-size: clamp(10px, 1.1vw, 12px); letter-spacing: .2em;
+  text-transform: uppercase; color: var(--glow); margin: 0; }
+.titlecard__meta {
+  position: absolute; left: 0; right: 0; bottom: clamp(46px, 8vh, 76px); margin: 0;
+  width: min(100% - var(--gut) * 2, var(--measure)); margin-inline: auto;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .14em; color: var(--text-faint);
+  max-width: none; /* the global p rule would clamp this to 66ch */
 }
 
-.planes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 42px; }
-.plane { border-left: 2px solid var(--glow); padding: 4px 0 4px 18px; }
-.plane[data-tone="signal"] { border-color: var(--signal); }
-.plane[data-tone="ok"] { border-color: var(--ok); }
-.plane b { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text); margin-bottom: 6px; }
-.plane span { font-size: 14.5px; color: var(--text-dim); }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
-/* steps */
-.steps { display: grid; gap: 2px; margin-top: 12px; }
-.step {
-  display: grid;
-  grid-template-columns: 40px minmax(110px, 0.35fr) 1fr;
-  gap: clamp(12px, 2vw, 24px);
-  align-items: baseline;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--hairline);
+/* ========================================================== stat band ==== */
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px;
+  background: var(--hairline); border-block: 1px solid var(--hairline); }
+.stat { background: var(--ink); padding: clamp(22px, 3vw, 38px) clamp(14px, 2vw, 26px); }
+.stat__n { font-family: var(--display); font-size: clamp(34px, 4.4vw, 56px); line-height: 1;
+  color: var(--text); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.stat__n span { color: var(--glow); font-size: .52em; letter-spacing: 0; }
+.stat__l { font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--glow); margin-top: 14px; }
+.stat__note { font-size: 13.5px; color: var(--text-faint); margin: 6px 0 0; }
+
+/* ======================================================== pull quote ==== */
+
+.quote { padding: clamp(70px, 11vh, 130px) 0; text-align: center; }
+.quote blockquote {
+  margin: 0 auto; max-width: 20ch;
+  font-family: var(--display); font-weight: 400; font-style: italic;
+  font-size: clamp(30px, 5.6vw, 68px); line-height: 1.06; letter-spacing: -.028em;
+  color: var(--text);
 }
+.quote cite { display: block; margin-top: 28px; font-style: normal;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--glow); }
+
+/* ========================================================== marquee ===== */
+
+.marquee { overflow: hidden; border-block: 1px solid var(--hairline); padding: 20px 0;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee__track { display: flex; gap: 44px; width: max-content; animation: slide 34s linear infinite; }
+.marquee:hover .marquee__track { animation-play-state: paused; }
+.marquee span { font-family: var(--mono); font-size: clamp(15px, 2.2vw, 26px); letter-spacing: -.01em;
+  color: var(--text-faint); white-space: nowrap; }
+.marquee span::before { content: "· "; color: var(--glow); }
+@keyframes slide { to { transform: translateX(-50%); } }
+
+/* ============================================== asymmetric feature set == */
+
+.feats { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(16px, 2vw, 26px); }
+.feat { border: 1px solid var(--hairline); border-radius: 16px; padding: clamp(20px, 2.4vw, 30px);
+  background: linear-gradient(180deg, rgba(20,17,26,.55), rgba(13,11,16,.55));
+  transition: border-color .5s var(--ease), transform .5s var(--ease); }
+.feat:hover { border-color: var(--hairline-2); transform: translateY(-3px); }
+/* every other card drops, so the grid never reads as a spreadsheet */
+.feats .feat:nth-child(even) { margin-top: clamp(0px, 3vw, 42px); }
+.feat__n { font-family: var(--display); font-size: 46px; line-height: 1; color: var(--hairline-2);
+  letter-spacing: -.04em; display: block; margin-bottom: 16px; transition: color .5s var(--ease); }
+.feat:hover .feat__n { color: var(--glow); }
+.feat h3 { margin-bottom: 12px; }
+.feat p { font-size: 15px; margin-bottom: 0; }
+.feat__key { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--hairline);
+  font-size: 14.5px; color: var(--glow-soft); }
+
+/* =========================================== sticky-label loop section == */
+
+.sticky2 { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); align-items: start; }
+.sticky2__label { position: sticky; top: 14vh; }
+.steps { display: grid; }
+.step { display: grid; grid-template-columns: 44px 1fr; gap: clamp(14px, 2vw, 26px);
+  padding: 26px 0; border-bottom: 1px solid var(--hairline); align-items: baseline; }
 .step:first-child { border-top: 1px solid var(--hairline); }
-.step__n { font-family: var(--mono); font-size: 12px; color: var(--glow); }
-.step__t { font-weight: 600; color: var(--text); }
+.step__n { font-family: var(--mono); font-size: 11px; color: var(--glow); letter-spacing: .1em; }
+.step__t { font-family: var(--display); font-size: 21px; color: var(--text); margin-bottom: 6px; letter-spacing: -.015em; }
 .step__d { color: var(--text-dim); font-size: 15.5px; }
 
-.aside {
-  margin-top: 34px;
-  padding: 20px 24px;
-  border-left: 2px solid var(--glow);
-  background: rgba(255, 159, 69, 0.045);
-  border-radius: 0 10px 10px 0;
-  color: var(--text-dim);
-  font-size: 15.5px;
-}
-.aside p { margin: 0; }
+.planes { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; margin-top: 46px; }
+.plane { border-left: 2px solid var(--glow); padding: 6px 0 6px 20px; }
+.plane[data-tone="signal"] { border-color: var(--signal); }
+.plane[data-tone="ok"] { border-color: var(--ok); }
+.plane b { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--text); margin-bottom: 7px; }
+.plane span { font-size: 14.5px; color: var(--text-dim); }
 
-/* code */
-pre {
-  margin: 0;
-  padding: 22px 24px;
-  background: var(--ink-2);
-  border: 1px solid var(--hairline);
-  border-radius: 14px;
-  overflow-x: auto;
-  font-family: var(--mono);
-  font-size: 13px;
-  line-height: 1.7;
-  color: #cdc6d6;
-  tab-size: 2;
-}
+.aside { margin-top: 38px; padding: 22px 26px; border-left: 2px solid var(--glow);
+  background: rgba(255,159,69,.045); border-radius: 0 12px 12px 0; color: var(--text-dim); font-size: 15.5px; }
+.aside p { margin: 0; max-width: none; }
+
+/* ========================================== full-bleed boundary panel === */
+
+.panel { background: var(--ink-2); border-block: 1px solid var(--hairline); }
+.panel__big { font-family: var(--display); font-size: clamp(30px, 6vw, 76px); line-height: 1.02;
+  letter-spacing: -.032em; margin: 0 0 34px; max-width: 16ch; }
+.panel__big em { color: var(--glow); font-style: italic; }
+.proves { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1px;
+  background: var(--hairline); margin-top: 44px; border: 1px solid var(--hairline); }
+.prove { background: var(--ink-2); padding: 22px; font-size: 14.5px; color: var(--text-dim); }
+.prove b { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .16em; color: var(--ok); margin-bottom: 10px; }
+
+/* ============================================================= code ===== */
+
+pre { margin: 0; padding: 24px 26px; background: var(--ink-2); border: 1px solid var(--hairline);
+  border-radius: 14px; overflow-x: auto; font-family: var(--mono); font-size: 12.5px;
+  line-height: 1.75; color: #cdc6d6; tab-size: 2; }
 pre b { color: var(--glow-soft); font-weight: 400; }
 pre i { color: var(--signal); font-style: normal; }
-pre u { color: var(--text-faint); text-decoration: none; }
 .codegrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 18px; }
-.codelabel { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+.codelabel { font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--text-faint); margin-bottom: 11px; }
 
-/* tables */
+.objective { font-family: var(--display); font-size: clamp(19px, 2.6vw, 30px); line-height: 1.5;
+  letter-spacing: -.015em; color: var(--text); margin: 0; }
+.objective b { color: var(--glow); font-weight: 500; }
+.objective s { color: var(--bad); text-decoration: none; }
+
+/* =========================================================== tables ===== */
+
 .table { width: 100%; border-collapse: collapse; font-size: 15px; }
-.table th {
-  text-align: left;
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-  font-weight: 400;
-  padding: 0 16px 12px 0;
-  border-bottom: 1px solid var(--hairline-2);
-}
-.table td { padding: 15px 16px 15px 0; border-bottom: 1px solid var(--hairline); color: var(--text-dim); vertical-align: top; }
-.table td:first-child { color: var(--text); font-weight: 500; white-space: nowrap; }
+.table th { text-align: left; font-family: var(--mono); font-size: 10px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--text-faint); font-weight: 400; padding: 0 16px 14px 0;
+  border-bottom: 1px solid var(--hairline-2); }
+.table td { padding: 16px 16px 16px 0; border-bottom: 1px solid var(--hairline); color: var(--text-dim); vertical-align: top; }
+.table td:first-child { color: var(--text); font-weight: 500; }
+.table tr { transition: background .3s var(--ease); }
+.table tbody tr:hover { background: rgba(255,159,69,.035); }
 .table tr:last-child td { border-bottom: 0; }
 
-/* numbered list */
-.ol { counter-reset: n; list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
-.ol li {
-  counter-increment: n;
-  display: grid;
-  grid-template-columns: 34px 1fr;
-  gap: 16px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--hairline);
-  color: var(--text-dim);
-  font-size: 15.5px;
-}
-.ol li::before { content: counter(n, decimal-leading-zero); font-family: var(--mono); font-size: 12px; color: var(--glow); }
+/* ============================================== big numbered criteria === */
 
-/* plain checklist */
-.list { list-style: none; padding: 0; margin: 0; display: grid; gap: 11px; }
+.crit { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1px; background: var(--hairline);
+  border: 1px solid var(--hairline); }
+.crit li { list-style: none; background: var(--ink); padding: 26px; display: grid; grid-template-columns: 50px 1fr; gap: 14px; }
+.crit li::before { content: counter(c, decimal-leading-zero); counter-increment: c;
+  font-family: var(--display); font-size: 34px; line-height: .9; color: var(--hairline-2); letter-spacing: -.04em; }
+.crit { counter-reset: c; padding: 0; margin: 0; }
+.crit span { color: var(--text-dim); font-size: 15px; }
+
+.list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
 .list li { padding-left: 26px; position: relative; color: var(--text-dim); font-size: 15.5px; }
-.list li::before { content: ""; position: absolute; left: 4px; top: 0.62em; width: 8px; height: 8px; border-radius: 50%; background: var(--glow); }
-.list[data-tone="no"] li::before { background: none; content: "×"; left: 2px; top: 0; color: var(--bad); font-size: 17px; line-height: 1.55; }
+.list li::before { content: ""; position: absolute; left: 4px; top: .6em; width: 8px; height: 8px; border-radius: 50%; background: var(--glow); }
 .list[data-tone="yes"] li::before { background: var(--ok); }
+.list[data-tone="no"] li::before { content: "×"; background: none; left: 2px; top: 0; color: var(--bad); font-size: 17px; line-height: 1.5; }
 
-/* badges */
-.badge {
-  display: inline-block;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 4px 9px;
-  border-radius: 999px;
-  border: 1px solid currentColor;
-  color: var(--warn);
-  margin-left: 10px;
-  vertical-align: middle;
-}
+.badge { display: inline-block; font-family: var(--mono); font-size: 9.5px; letter-spacing: .14em;
+  text-transform: uppercase; padding: 4px 9px; border-radius: 999px; border: 1px solid currentColor;
+  color: var(--warn); margin-left: 10px; vertical-align: middle; }
 .badge[data-tone="ok"] { color: var(--ok); }
 
-/* team */
-.member { display: grid; grid-template-columns: 64px 1fr; gap: clamp(14px, 2vw, 26px); padding: 26px 0; border-bottom: 1px solid var(--hairline); }
-.member:first-child { border-top: 1px solid var(--hairline); }
-.member__n { font-family: var(--mono); font-size: 13px; color: var(--glow); letter-spacing: 0.1em; }
-.member h3 { margin-bottom: 8px; }
+.split { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(22px, 3vw, 44px); }
+.split h3 { font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 20px; }
+
+/* ============================================================= team ===== */
+
+.member { display: grid; grid-template-columns: 74px 1fr; gap: clamp(16px, 2.4vw, 32px);
+  padding: 32px 0; border-bottom: 1px solid var(--hairline); }
+.member:first-of-type { border-top: 1px solid var(--hairline); }
+.member__n { font-family: var(--display); font-size: 30px; color: var(--glow); letter-spacing: -.03em; line-height: 1; }
+.member h3 { margin-bottom: 10px; }
 .member p { font-size: 15.5px; margin-bottom: 10px; }
 .member__out { color: var(--glow-soft); font-size: 14.5px; }
-.member__when { font-family: var(--mono); font-size: 11px; color: var(--text-faint); letter-spacing: 0.08em; margin-top: 10px; }
+.member__when { font-family: var(--mono); font-size: 10.5px; color: var(--text-faint); letter-spacing: .08em; margin-top: 12px; }
 
-/* timeline */
-.win { display: grid; grid-template-columns: 92px 1fr; gap: clamp(14px, 2.2vw, 28px); padding: 22px 0; border-bottom: 1px solid var(--hairline); }
-.win:first-child { border-top: 1px solid var(--hairline); }
-.win__h { font-family: var(--mono); font-size: 13px; color: var(--glow); letter-spacing: 0.06em; }
-.win__o { color: var(--text); font-size: 15.5px; margin-bottom: 8px; }
-.win__d { color: var(--text-dim); font-size: 14.5px; margin-bottom: 8px; }
-.win__no { font-family: var(--mono); font-size: 11px; color: var(--bad); opacity: 0.8; letter-spacing: 0.04em; }
+/* ================================== horizontal, scroll-driven timeline == */
+
+.rail { height: 420vh; position: relative; }
+.rail__stage { position: sticky; top: 0; height: 100svh; display: grid; grid-template-rows: auto 1fr auto;
+  padding: clamp(40px, 8vh, 90px) 0; overflow: hidden; }
+.rail__track { display: flex; gap: clamp(16px, 2vw, 28px); align-items: stretch; padding-inline: var(--gut);
+  transform: translate3d(calc(var(--rail, 0) * -1px), 0, 0); }
+.win { flex: 0 0 clamp(270px, 27vw, 360px); border: 1px solid var(--hairline); border-radius: 16px;
+  padding: clamp(20px, 2.2vw, 28px); background: linear-gradient(180deg, rgba(20,17,26,.6), rgba(13,11,16,.6));
+  display: flex; flex-direction: column; }
+.win__h { font-family: var(--display); font-size: clamp(30px, 3.4vw, 44px); color: var(--glow);
+  letter-spacing: -.035em; line-height: 1; margin-bottom: 18px; }
+.win__h small { font-size: .38em; color: var(--text-faint); letter-spacing: .1em; font-family: var(--mono); }
+.win__o { color: var(--text); font-size: 15px; margin-bottom: 12px; }
+.win__d { color: var(--text-dim); font-size: 14px; margin-bottom: 14px; }
+.win__no { margin-top: auto; font-family: var(--mono); font-size: 10px; color: var(--bad); opacity: .78; letter-spacing: .04em; }
 .win__no::before { content: "don't touch — "; color: var(--text-faint); }
+.railbar { height: 2px; background: var(--hairline); margin: 0 var(--gut); }
+.railbar i { display: block; height: 100%; background: var(--glow); width: calc(var(--railp, 0) * 100%); }
 
-/* beats */
-.beat { display: grid; grid-template-columns: 62px 148px 1fr; gap: clamp(10px, 2vw, 22px); padding: 16px 0; border-bottom: 1px solid var(--hairline); align-items: baseline; }
-.beat:first-child { border-top: 1px solid var(--hairline); }
+/* ============================================================ beats ===== */
+
+.beat { display: grid; grid-template-columns: 66px 150px 1fr; gap: clamp(12px, 2vw, 24px);
+  padding: 20px 0; border-bottom: 1px solid var(--hairline); align-items: baseline; }
+.beat:first-of-type { border-top: 1px solid var(--hairline); }
 .beat__t { font-family: var(--mono); font-size: 12px; color: var(--glow); }
 .beat__h { color: var(--text); font-weight: 600; font-size: 15px; }
 .beat__d { color: var(--text-dim); font-size: 15px; }
 
-/* two-column yes/no */
-.split { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(20px, 3vw, 40px); }
-.split h3 { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 18px; }
+/* =========================================================== footer ===== */
 
-/* footer */
-footer { padding: clamp(60px, 9vh, 100px) 0; border-top: 1px solid var(--hairline); }
-.foot { display: flex; flex-wrap: wrap; gap: 28px; align-items: center; justify-content: space-between; }
-.foot svg { width: 190px; height: auto; }
-.foot__meta { font-family: var(--mono); font-size: 11.5px; color: var(--text-faint); letter-spacing: 0.08em; line-height: 2; text-align: right; }
+footer { padding: clamp(70px, 10vh, 120px) 0; border-top: 1px solid var(--hairline); }
+.foot { display: flex; flex-wrap: wrap; gap: 30px; align-items: center; justify-content: space-between; }
+.foot svg { width: 210px; height: auto; }
+.foot__meta { font-family: var(--mono); font-size: 11px; color: var(--text-faint); letter-spacing: .08em; line-height: 2.1; text-align: right; }
 
-/* ========================================================= responsive ==== */
+/* ======================================================= responsive ===== */
 
-@media (max-width: 900px) {
-  .stage__body { grid-template-columns: 1fr; gap: 24px; align-content: center; }
-  .scenes { min-height: 210px; }
-  .stage { min-height: 100svh; }
-  .step { grid-template-columns: 28px 1fr; }
-  .step__d { grid-column: 1 / -1; }
-  .beat { grid-template-columns: 54px 1fr; }
+@media (max-width: 980px) {
+  .stage__body { grid-template-columns: 1fr; gap: 22px; align-content: center; }
+  .scenes { min-height: 200px; }
+  .sticky2 { grid-template-columns: 1fr; }
+  .sticky2__label { position: static; }
+  .beat { grid-template-columns: 56px 1fr; }
   .beat__d { grid-column: 1 / -1; }
+  .feats .feat:nth-child(even) { margin-top: 0; }
   .foot__meta { text-align: left; }
 }
 
@@ -599,68 +545,77 @@ footer { padding: clamp(60px, 9vh, 100px) 0; border-top: 1px solid var(--hairlin
   body { font-size: 16px; }
   .table td:first-child { white-space: normal; }
   .table th, .table td { padding-right: 10px; }
-  .member, .win { grid-template-columns: 1fr; gap: 8px; }
-  .chart__top { flex-direction: column; gap: 4px; align-items: flex-start; }
+  .member { grid-template-columns: 1fr; gap: 10px; }
+  .crit li { grid-template-columns: 40px 1fr; }
+  #stage3d { opacity: .5 !important; }
 }
 
-/* ==================================================== reduced motion ===== */
+/* ==================================================== reduced motion ==== */
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .open-y, .open-x {
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-    clip-path: none !important;
-    transition: none !important;
+  .rv, .rv-left, .rv-scale, .open-y, .open-x, .w > i {
+    opacity: 1 !important; transform: none !important; filter: none !important;
+    clip-path: none !important; transition: none !important;
   }
-  .journey { height: auto; }
-  .stage { position: static; height: auto; min-height: 0; }
-  .scenes { min-height: 0; display: grid; gap: 30px; }
+  .journey, .rail { height: auto; }
+  .stage, .rail__stage { position: static; height: auto; min-height: 0; }
+  .scenes { min-height: 0; display: grid; gap: 32px; }
   .scene { position: static; opacity: 1; transform: none; pointer-events: auto; }
   .titlecard { position: static; opacity: 1; background: none; padding-bottom: 50px; }
+  .rail__track { transform: none; flex-wrap: wrap; }
+  .win { flex: 1 1 280px; }
+  .marquee__track { animation: none; flex-wrap: wrap; }
   .hint span { animation: none; }
+  #stage3d { display: none; }
+  .cursorglow { display: none; }
 }
 </style>
 </head>
 <body>
+<div class="progress" aria-hidden="true"></div>
+<div class="cursorglow" aria-hidden="true"></div>
 <main>
 
 <div class="journey">
   <div class="stage">
-    <div class="stage__glow" aria-hidden="true"></div>
+    <div id="stage3d" aria-hidden="true"></div>
 
-    <div class="titlecard" aria-hidden="true">
-      <div class="titlecard__inner">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 275 118" role="img" aria-label="Filament">
+    <div class="titlecard">
+      <div class="wrap">
+        <div class="titlecard__inner">
+          <h1 class="titlecard__name rv"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 354 64" role="img" aria-label="Filament">
   <title>Filament</title>
   <defs>
-    <linearGradient id="wire-s" x1="8" y1="52" x2="56" y2="14" gradientUnits="userSpaceOnUse">
+    <linearGradient id="wire-h" x1="8" y1="52" x2="56" y2="14" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#4a5568"/>
       <stop offset=".38" stop-color="#8a7a6a"/>
       <stop offset=".72" stop-color="#ff9f45"/>
       <stop offset="1" stop-color="#ffd9a0"/>
     </linearGradient>
-    <radialGradient id="halo-s" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+    <radialGradient id="halo-h" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
       gradientTransform="translate(49.63 15.74) scale(17)">
       <stop offset="0" stop-color="#ffb45c" stop-opacity=".55"/>
       <stop offset=".55" stop-color="#ff9f45" stop-opacity=".12"/>
       <stop offset="1" stop-color="#ff9f45" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <g transform="translate(105.5 0)">
-    <circle cx="49.63" cy="15.74" r="17" fill="url(#halo-s)"/>
-    <path d="M 8.93 53.48 L 17 46 C 3.27 40.32 21.53 23.39 26.17 37.5 C 12.44 31.82 30.7 14.89 35.33 29 C 21.61 23.32 39.87 6.39 44.5 20.5 L 49.63 15.74" fill="none" stroke="url(#wire-s)" stroke-width="4"
+  <g transform="translate(0 0)">
+    <circle cx="49.63" cy="15.74" r="17" fill="url(#halo-h)"/>
+    <path d="M 8.93 53.48 L 17 46 C 3.27 40.32 21.53 23.39 26.17 37.5 C 12.44 31.82 30.7 14.89 35.33 29 C 21.61 23.32 39.87 6.39 44.5 20.5 L 49.63 15.74" fill="none" stroke="url(#wire-h)" stroke-width="4"
       stroke-linecap="round" stroke-linejoin="round"/>
     <circle cx="49.63" cy="15.74" r="4.6" fill="#ffd9a0"/>
   </g>
-  <g transform="translate(4 86)">
+  <g transform="translate(84 18)">
     <g fill="none" stroke="#f2ede6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M 0 0 L 0 28 M 0 0 L 17 0 M 0 13 L 13.26 13"/><path transform="translate(26.5 0)" d="M 0 0 L 0 28"/><path transform="translate(36 0)" d="M 0 0 L 0 28 M 0 28 L 15 28"/><path transform="translate(60.5 0)" d="M 0 28 L 10 0 M 10 0 L 20 28 M 6.78 19 L 13.22 19"/><path transform="translate(90 0)" d="M 0 28 L 0 0 M 0 0 L 11 16.5 M 11 16.5 L 22 0 M 22 0 L 22 28"/><path transform="translate(121.5 0)" d="M 0 0 L 0 28 M 0 0 L 15 0 M 0 13 L 11.7 13 M 0 28 L 15 28"/><path transform="translate(146 0)" d="M 0 28 L 0 0 M 0 0 L 18 28 M 18 28 L 18 0"/><path transform="translate(173.5 0)" d="M 0 0 L 18 0 M 9 0 L 9 28"/><path transform="translate(222.5 0)" d="M 10.5 0 A 10.5 14 0 1 1 10.5 28 A 10.5 14 0 1 1 10.5 0"/><path transform="translate(253 0)" d="M 14 7 A 7 7 0 1 0 7 14 A 7 7 0 1 1 0 21"/></g>
   </g>
 </svg>
-
-        <p>Offline coordination for homes, hostels and small microgrids.</p>
-        <p class="sub">Five gateways. Thirty devices. One hard power limit.</p>
+<span class="vh">FILAMENT OS</span></h1>
+          <div class="titlecard__rule open-x" style="--i:1"></div>
+          <p class="titlecard__say rv" style="--i:2">Offline coordination for homes, hostels and small microgrids.</p>
+          <p class="titlecard__spec rv" style="--i:3">Five gateways. Thirty devices. One hard power limit.</p>
+        </div>
       </div>
+      <p class="titlecard__meta rv" style="--i:4">Code2Create 7.0 · ACM-VIT · graVITas &#39;26 &nbsp;·&nbsp; Anna Auditorium, VIT Vellore</p>
     </div>
 
     <div class="wrap stage__head">
@@ -693,77 +648,85 @@ footer { padding: clamp(60px, 9vh, 100px) 0; border-top: 1px solid var(--hairlin
 
     <div class="wrap stage__body">
       <div class="scenes">
-      <article class="scene" data-active="true">
-        <p class="scene__kicker">00:00</p>
-        <h2 class="scene__title">Five homes, one feeder</h2>
-        <p class="scene__body">A hostel floor, an apartment cluster, a small microgrid. Everyone draws what they want. There is headroom, so nobody has to think about it.</p>
-      </article>
-      <article class="scene" data-active="false">
-        <p class="scene__kicker">00:20</p>
-        <h2 class="scene__title">Capacity drops</h2>
-        <p class="scene__body">The inverter switches over. The feeder is derated. Available power falls to 1.8 kW and every home is still drawing as though nothing happened.</p>
-      </article>
-      <article class="scene" data-active="false">
-        <p class="scene__kicker">00:30</p>
-        <h2 class="scene__title">Monitoring is not control</h2>
-        <p class="scene__body">A dashboard turns red and starts a timer. It tells you that you are failing. It does not decide, does not act, and cannot prove that anything recovered.</p>
-      </article>
-      <article class="scene" data-active="false">
-        <p class="scene__kicker">00:40</p>
-        <h2 class="scene__title">Each home offers, it does not confess</h2>
-        <p class="scene__body">A gateway keeps its device list private and publishes one envelope: minimum safe watts, preferred watts, maximum useful watts, deadline energy, and the curtailment it has already absorbed.</p>
-      </article>
-      <article class="scene" data-active="false">
-        <p class="scene__kicker">01:10</p>
-        <h2 class="scene__title">The coordinator allocates</h2>
-        <p class="scene__body">Water heaters, the washer and the EV emulator defer. Router, fridge and the protected load stay up. Every command carries a plan id, a version, an expiry and a reason.</p>
-      </article>
-      <article class="scene" data-active="false">
-        <p class="scene__kicker">01:50</p>
-        <h2 class="scene__title">Gateway C disappears</h2>
-        <p class="scene__body">Its heartbeat stops. Its load is not assumed to be zero — it becomes unknown, reserves a conservative budget, and raises an incident. Another household&#39;s flexible slot moves.</p>
-      </article></div>
+        
+        <article class="scene" data-active="true">
+          <p class="scene__kicker">00:00</p>
+          <h2 class="scene__title">Five homes, one feeder</h2>
+          <p class="scene__body">A hostel floor, an apartment cluster, a small microgrid. Everyone draws what they want. There is headroom, so nobody has to think about it.</p>
+        </article>
+        <article class="scene" data-active="false">
+          <p class="scene__kicker">00:20</p>
+          <h2 class="scene__title">Capacity drops</h2>
+          <p class="scene__body">The inverter switches over. The feeder is derated. Available power falls to 1.8 kW and every home is still drawing as though nothing happened.</p>
+        </article>
+        <article class="scene" data-active="false">
+          <p class="scene__kicker">00:30</p>
+          <h2 class="scene__title">Monitoring is not control</h2>
+          <p class="scene__body">A dashboard turns red and starts a timer. It tells you that you are failing. It does not decide, does not act, and cannot prove that anything recovered.</p>
+        </article>
+        <article class="scene" data-active="false">
+          <p class="scene__kicker">00:40</p>
+          <h2 class="scene__title">Each home offers, it does not confess</h2>
+          <p class="scene__body">A gateway keeps its device list private and publishes one envelope: minimum safe watts, preferred watts, maximum useful watts, deadline energy, and the curtailment it has already absorbed.</p>
+        </article>
+        <article class="scene" data-active="false">
+          <p class="scene__kicker">01:10</p>
+          <h2 class="scene__title">The coordinator allocates</h2>
+          <p class="scene__body">Water heaters, the washer and the EV emulator defer. Router, fridge and the protected load stay up. Every command carries a plan id, a version, an expiry and a reason.</p>
+        </article>
+        <article class="scene" data-active="false">
+          <p class="scene__kicker">01:50</p>
+          <h2 class="scene__title">Gateway C disappears</h2>
+          <p class="scene__body">Its heartbeat stops. Its load is not assumed to be zero — it becomes unknown, reserves a conservative budget, and raises an incident. Another household&#39;s flexible slot moves.</p>
+        </article>
+      </div>
+
+      <div class="stage__gap" aria-hidden="true"></div>
 
       <div class="chart" data-status="ok">
         <div class="chart__top">
-          <span>Site load · five gateways</span>
-          <span class="chart__status">nominal</span>
+          <span class="chart__label">Site load · five gateways</span>
+          <span class="pill chart__status">nominal</span>
         </div>
+
+        <div class="readout">
+          <div class="readout__big"><span class="readout__total">4.60</span><u>kW drawn</u></div>
+          <div class="readout__cap">available<b class="readout__capkw">5.00</b></div>
+        </div>
+
         <div class="meterwrap">
           <div class="meter"><div class="seg" style="--w:.19"></div><div class="seg" style="--w:.19"></div><div class="seg" style="--w:.19"></div><div class="seg" style="--w:.19"></div><div class="seg" style="--w:.19"></div><div class="capline" data-kw="5.00"></div></div>
           <div class="scaleline"><span>0</span><span>5.4 kW</span></div>
         </div>
+
         <div class="gws">
-      <div class="gw" data-stale="false">
-        <span class="gw__id">home-a</span>
-        <span class="gw__track"><span class="gw__fill" style="--w:.7"></span></span>
-        <span class="gw__kw">0.00 kW</span>
-        <span class="gw__st">ok</span>
-      </div>
-      <div class="gw" data-stale="false">
-        <span class="gw__id">home-b</span>
-        <span class="gw__track"><span class="gw__fill" style="--w:.7"></span></span>
-        <span class="gw__kw">0.00 kW</span>
-        <span class="gw__st">ok</span>
-      </div>
-      <div class="gw" data-stale="false">
-        <span class="gw__id">home-c</span>
-        <span class="gw__track"><span class="gw__fill" style="--w:.7"></span></span>
-        <span class="gw__kw">0.00 kW</span>
-        <span class="gw__st">ok</span>
-      </div>
-      <div class="gw" data-stale="false">
-        <span class="gw__id">home-d</span>
-        <span class="gw__track"><span class="gw__fill" style="--w:.7"></span></span>
-        <span class="gw__kw">0.00 kW</span>
-        <span class="gw__st">ok</span>
-      </div>
-      <div class="gw" data-stale="false">
-        <span class="gw__id">home-e</span>
-        <span class="gw__track"><span class="gw__fill" style="--w:.7"></span></span>
-        <span class="gw__kw">0.00 kW</span>
-        <span class="gw__st">ok</span>
-      </div></div>
+          
+          <div class="gw" data-stale="false">
+            <span class="gw__id">home-a</span>
+            <span class="gw__track"><span class="gw__fill" style="--w:.7"></span></span>
+            <span class="gw__kw">0.00</span><span class="gw__st">ok</span>
+          </div>
+          <div class="gw" data-stale="false">
+            <span class="gw__id">home-b</span>
+            <span class="gw__track"><span class="gw__fill" style="--w:.7"></span></span>
+            <span class="gw__kw">0.00</span><span class="gw__st">ok</span>
+          </div>
+          <div class="gw" data-stale="false">
+            <span class="gw__id">home-c</span>
+            <span class="gw__track"><span class="gw__fill" style="--w:.7"></span></span>
+            <span class="gw__kw">0.00</span><span class="gw__st">ok</span>
+          </div>
+          <div class="gw" data-stale="false">
+            <span class="gw__id">home-d</span>
+            <span class="gw__track"><span class="gw__fill" style="--w:.7"></span></span>
+            <span class="gw__kw">0.00</span><span class="gw__st">ok</span>
+          </div>
+          <div class="gw" data-stale="false">
+            <span class="gw__id">home-e</span>
+            <span class="gw__track"><span class="gw__fill" style="--w:.7"></span></span>
+            <span class="gw__kw">0.00</span><span class="gw__st">ok</span>
+          </div>
+        </div>
         <p class="chart__note">&nbsp;</p>
       </div>
     </div>
@@ -776,156 +739,206 @@ footer { padding: clamp(60px, 9vh, 100px) 0; border-top: 1px solid var(--hairlin
 </div>
 <script id="scene-data" type="application/json">[{"cap":5,"homes":[1.05,0.82,1.24,0.79,0.7],"status":"ok","note":"4.60 kW drawn · 5.00 kW available"},{"cap":1.8,"homes":[1.05,0.82,1.24,0.79,0.7],"status":"over","note":"4.60 kW drawn · 1.80 kW available · overload"},{"cap":1.8,"homes":[1.05,0.82,1.24,0.79,0.7],"status":"over","note":"the graph knows. nothing else does."},{"cap":1.8,"homes":[0.42,0.31,0.5,0.3,0.27],"status":"planning","note":"offers received from 5 gateways"},{"cap":1.8,"homes":[0.4,0.3,0.46,0.28,0.25],"status":"ok","note":"1.69 kW drawn · under cap in 3.2 s"},{"cap":1.8,"homes":[0.38,0.28,null,0.3,0.26],"status":"degraded","note":"gateway-c stale · conservative reserve held · replanned"}]</script>
 
-<section id="problem"><div class="wrap">
-  
-  <div class="head reveal">
-    <p class="eyebrow">The problem</p>
-    <h2>When capacity drops, every home decides alone</h2>
-    <p class="lede">The result is an overload, a blunt whole-block shutdown, or one unlucky household absorbing all of the inconvenience.</p>
+<section class="hair" style="padding:0">
+  <div class="stats">
+    
+    <div class="stat rv" style="--i:0">
+      <div class="stat__n"><span data-count="5">0</span><span></span></div>
+      <div class="stat__l">gateways</div>
+      <p class="stat__note">each fails independently</p>
+    </div>
+    <div class="stat rv" style="--i:1">
+      <div class="stat__n"><span data-count="30">0</span><span></span></div>
+      <div class="stat__l">devices</div>
+      <p class="stat__note">emulated, plus one real</p>
+    </div>
+    <div class="stat rv" style="--i:2">
+      <div class="stat__n"><span data-count="1" data-from="5" data-decimals="1">0</span><span> kW</span></div>
+      <div class="stat__l">hard cap</div>
+      <p class="stat__note">never a suggestion</p>
+    </div>
+    <div class="stat rv" style="--i:3">
+      <div class="stat__n"><span data-count="800">0</span><span> ms</span></div>
+      <div class="stat__l">planner wall clock</div>
+      <p class="stat__note">then greedy ships</p>
+    </div>
+    <div class="stat rv" style="--i:4">
+      <div class="stat__n"><span data-count="12">0</span><span></span></div>
+      <div class="stat__l">five-minute slots</div>
+      <p class="stat__note">one hour of lookahead</p>
+    </div>
+    <div class="stat rv" style="--i:5">
+      <div class="stat__n"><span data-count="0">0</span><span> V</span></div>
+      <div class="stat__l">mains switched</div>
+      <p class="stat__note">by design</p>
+    </div>
   </div>
-  <div class="reveal" style="--i:1"><p>A hostel inverter cuts over to a fraction of its normal capacity. An apartment feeder browns out. A small microgrid loses its main source. These are not rare events — in a lot of the world they are Tuesday.</p><p>The devices in each home are perfectly capable of waiting. A water heater does not care whether it runs now or in forty minutes. A washing machine has a deadline, not an urgency. An EV charger is the most flexible load in the building.</p><p>But nothing tells them. There is no shared picture of what is scarce, no way for one home to say &quot;I can wait&quot; and have that mean anything, and no proof afterwards that the load actually came down.</p></div>
+</section>
+
+<section id="problem"><div class="wrap wrap--narrow">
+  
+  <div class="head" style="margin-bottom:clamp(40px,6vh,72px)">
+    <p class="eyebrow rv">The problem</p>
+    <h2 class="w"><i style="--wi:0">When</i> <i style="--wi:1">capacity</i> <i style="--wi:2">drops,</i> <i style="--wi:3">every</i> <i style="--wi:4">home</i> <i style="--wi:5">decides</i> <i style="--wi:6">alone</i></h2>
+    <p class="lede rv" style="--i:1">The result is an overload, a blunt whole-block shutdown, or one unlucky household absorbing all of the inconvenience.</p>
+    
+  </div>
+  <div class="rv" style="--i:2"><p>A hostel inverter cuts over to a fraction of its normal capacity. An apartment feeder browns out. A small microgrid loses its main source. These are not rare events — in a lot of the world they are Tuesday.</p><p>The devices in each home are perfectly capable of waiting. A water heater does not care whether it runs now or in forty minutes. A washing machine has a deadline, not an urgency. An EV charger is the most flexible load in the building.</p><p>But nothing tells them. There is no shared picture of what is scarce, no way for one home to say &quot;I can wait&quot; and have that mean anything, and no proof afterwards that the load actually came down.</p></div>
 </div></section>
 
-<section id="what"><div class="wrap">
+
+<section class="quote hair">
+  <div class="wrap">
+    <blockquote class="w"><i style="--wi:0">Monitoring</i> <i style="--wi:1">tells</i> <i style="--wi:2">us</i> <i style="--wi:3">we</i> <i style="--wi:4">are</i> <i style="--wi:5">failing.</i> <i style="--wi:6">It</i> <i style="--wi:7">does</i> <i style="--wi:8">not</i> <i style="--wi:9">decide,</i> <i style="--wi:10">act,</i> <i style="--wi:11">or</i> <i style="--wi:12">prove</i> <i style="--wi:13">recovery.</i></blockquote>
+    <cite class="rv" style="--i:2">why a dashboard is not a control system</cite>
+  </div>
+</section>
+
+<section id="what" class="hair"><div class="wrap">
   
-  <div class="head reveal">
-    <p class="eyebrow">What it does</p>
-    <h2>A coordination layer, not a dashboard</h2>
-    <p class="lede">Gateways publish what they can give up. A coordinator decides who gets what. Devices acknowledge. The system checks, and replans when reality disagrees.</p>
+  <div class="head" style="margin-bottom:clamp(40px,6vh,72px)">
+    <p class="eyebrow rv">What it does</p>
+    <h2 class="w"><i style="--wi:0">A</i> <i style="--wi:1">coordination</i> <i style="--wi:2">layer,</i> <i style="--wi:3">not</i> <i style="--wi:4">a</i> <i style="--wi:5">dashboard</i></h2>
+    <p class="lede rv" style="--i:1">Gateways publish what they can give up. A coordinator decides who gets what. Devices acknowledge. The system checks, and replans when reality disagrees.</p>
+    
   </div>
   <div class="planes">
     
-      <div class="plane reveal" data-tone="glow" style="--i:0">
-        <b>Control plane</b><span>Versioned MQTT topics on the local LAN.</span>
-      </div>
-      <div class="plane reveal" data-tone="signal" style="--i:1">
-        <b>Evidence plane</b><span>Append-only SQLite event log you can replay.</span>
-      </div>
-      <div class="plane reveal" data-tone="ok" style="--i:2">
-        <b>Operator plane</b><span>One screen. Three controls.</span>
-      </div>
+    <div class="plane rv-left" data-tone="glow" style="--i:0"><b>Control plane</b><span>Versioned MQTT topics on the local LAN.</span></div>
+    <div class="plane rv-left" data-tone="signal" style="--i:1"><b>Evidence plane</b><span>Append-only SQLite event log you can replay.</span></div>
+    <div class="plane rv-left" data-tone="ok" style="--i:2"><b>Operator plane</b><span>One screen. Three controls.</span></div>
   </div>
 </div></section>
 
-<section id="boundary"><div class="wrap">
-  
-  <div class="head reveal">
-    <p class="eyebrow">The boundary</p>
-    <h2>FILAMENT OS never switches mains voltage</h2>
-    <p class="lede">This goes on the first slide, not buried in a footnote.</p>
+<section id="boundary" class="panel"><div class="wrap">
+  <p class="eyebrow rv">The boundary</p>
+  <h2 class="panel__big w"><i style="--wi:0">FILAMENT</i> <i style="--wi:1">OS</i> <i style="--wi:2">never</i> <i style="--wi:3">switches</i> <i style="--wi:4">mains</i> <i style="--wi:5">voltage</i></h2>
+  <p class="lede rv" style="--i:1">This goes on the first slide, not buried in a footnote.</p>
+  <div class="rv" style="--i:2" style="margin-top:30px"><p>It is not a smart panel, not an inverter controller, not a certified demand-response platform, and it makes no savings claims.</p><p>It is a planning-and-control demonstrator: 20–30 emulated devices across five laptops, plus — if the hardware cooperates — one ESP32 driving a low-voltage LED on exactly the same message contract as every software node.</p></div>
+  <div class="proves">
+    
+    <div class="prove rv-scale" style="--i:0"><b>proves 01</b>Interoperable device messaging</div>
+    <div class="prove rv-scale" style="--i:1"><b>proves 02</b>A maintained device twin</div>
+    <div class="prove rv-scale" style="--i:2"><b>proves 03</b>Constraint-aware allocation</div>
+    <div class="prove rv-scale" style="--i:3"><b>proves 04</b>Closed-loop command verification</div>
+    <div class="prove rv-scale" style="--i:4"><b>proves 05</b>Graceful recovery</div>
   </div>
-  <div class="reveal" style="--i:1"><p>It is not a smart panel, not an inverter controller, not a certified demand-response platform, and it makes no savings claims.</p><p>It is a planning-and-control demonstrator: 20–30 emulated devices across five laptops, plus — if the hardware cooperates — one ESP32 driving a low-voltage LED on exactly the same message contract as every software node.</p></div>
-  <div class="rule open-x reveal" style="--i:2"></div>
-  <p class="reveal" style="--i:2"><strong>It proves five things and claims nothing else:</strong></p>
-  <ul class="list reveal" data-tone="yes" style="--i:3"><li>Interoperable device messaging</li><li>A maintained device twin</li><li>Constraint-aware allocation</li><li>Closed-loop command verification</li><li>Graceful recovery</li></ul>
-  <div class="aside reveal" style="--i:4"><p>That is already a serious 48-hour system, and saying so plainly is more convincing than overclaiming.</p></div>
+  <div class="aside rv" style="--i:3"><p>That is already a serious 48-hour system, and saying so plainly is more convincing than overclaiming.</p></div>
 </div></section>
 
 <section id="features"><div class="wrap">
   
-  <div class="head reveal">
-    <p class="eyebrow">The MVP</p>
-    <h2>Five features. Not six.</h2>
-    <p class="lede">The greatest danger to this project is scope, so the list is fixed before the clock starts.</p>
-  </div>
-  <div class="cols">
+  <div class="head" style="margin-bottom:clamp(40px,6vh,72px)">
+    <p class="eyebrow rv">The MVP</p>
+    <h2 class="w"><i style="--wi:0">Five</i> <i style="--wi:1">features.</i> <i style="--wi:2">Not</i> <i style="--wi:3">six.</i></h2>
+    <p class="lede rv" style="--i:1">The greatest danger to this project is scope, so the list is fixed before the clock starts.</p>
     
-      <article class="card reveal" style="--i:0">
-        <span class="card__n">01</span>
-        <h3>Device and gateway contract</h3>
-        <p>Every node publishes identity, gateway, observed watts, state, flexibility class, priority, deadline, minimum run time, heartbeat and timestamp.</p>
-        <p class="card__key">The ESP32 uses the same payload as the emulators. If the hardware needs a special case, it has stopped proving anything.</p>
-      </article>
-      <article class="card reveal" style="--i:1">
-        <span class="card__n">02</span>
-        <h3>Live twin and health</h3>
-        <p>Desired state, observed state, heartbeat age, command version, last acknowledgement — maintained per device by the coordinator.</p>
-        <p class="card__key">A silent node is never treated as zero load. It becomes unknown, reserves a conservative budget, and raises a visible incident.</p>
-      </article>
-      <article class="card reveal" style="--i:2">
-        <span class="card__n">03</span>
-        <h3>Capacity, deadline and fairness planner</h3>
-        <p>Twelve five-minute slots. Hard constraints on the cap, minimum runs and protected loads. Deadline jobs finish where feasible.</p>
-        <p class="card__key">The objective penalises switching, missed deadlines and unequal curtailment between homes.</p>
-      </article>
-      <article class="card reveal" style="--i:3">
-        <span class="card__n">04</span>
-        <h3>Closed-loop control and replan</h3>
-        <p>Commands carry a plan id, a monotonic version, a target state, an expiry and a reason. Devices answer applied, rejected, duplicate or expired.</p>
-        <p class="card__key">The coordinator compares desired against observed. Divergence triggers a deterministic replan.</p>
-      </article>
-      <article class="card reveal" style="--i:4">
-        <span class="card__n">05</span>
-        <h3>One-screen operations console</h3>
-        <p>Cap versus observed load, five gateway cards, device table, plan timeline, fairness indicator, reason codes, pending acknowledgements.</p>
-        <p class="card__key">The judge gets three controls: change the cap, protect a device, kill a gateway. Nothing else is clickable.</p>
-      </article>
+  </div>
+  <div class="feats">
+    
+    <article class="feat rv" style="--i:0">
+      <span class="feat__n">01</span>
+      <h3>Device and gateway contract</h3>
+      <p>Every node publishes identity, gateway, observed watts, state, flexibility class, priority, deadline, minimum run time, heartbeat and timestamp.</p>
+      <p class="feat__key">The ESP32 uses the same payload as the emulators. If the hardware needs a special case, it has stopped proving anything.</p>
+    </article>
+    <article class="feat rv" style="--i:1">
+      <span class="feat__n">02</span>
+      <h3>Live twin and health</h3>
+      <p>Desired state, observed state, heartbeat age, command version, last acknowledgement — maintained per device by the coordinator.</p>
+      <p class="feat__key">A silent node is never treated as zero load. It becomes unknown, reserves a conservative budget, and raises a visible incident.</p>
+    </article>
+    <article class="feat rv" style="--i:2">
+      <span class="feat__n">03</span>
+      <h3>Capacity, deadline and fairness planner</h3>
+      <p>Twelve five-minute slots. Hard constraints on the cap, minimum runs and protected loads. Deadline jobs finish where feasible.</p>
+      <p class="feat__key">The objective penalises switching, missed deadlines and unequal curtailment between homes.</p>
+    </article>
+    <article class="feat rv" style="--i:0">
+      <span class="feat__n">04</span>
+      <h3>Closed-loop control and replan</h3>
+      <p>Commands carry a plan id, a monotonic version, a target state, an expiry and a reason. Devices answer applied, rejected, duplicate or expired.</p>
+      <p class="feat__key">The coordinator compares desired against observed. Divergence triggers a deterministic replan.</p>
+    </article>
+    <article class="feat rv" style="--i:1">
+      <span class="feat__n">05</span>
+      <h3>One-screen operations console</h3>
+      <p>Cap versus observed load, five gateway cards, device table, plan timeline, fairness indicator, reason codes, pending acknowledgements.</p>
+      <p class="feat__key">The judge gets three controls: change the cap, protect a device, kill a gateway. Nothing else is clickable.</p>
+    </article>
   </div>
 </div></section>
 
-<section id="loop"><div class="wrap">
-  
-  <div class="head reveal">
-    <p class="eyebrow">The loop</p>
-    <h2>Sense, decide, command, acknowledge, measure, replan</h2>
-    <p class="lede">It cannot be reduced to CRUD screens. That is the whole argument for the project.</p>
+
+<section class="quote hair">
+  <div class="wrap">
+    <blockquote class="w"><i style="--wi:0">A</i> <i style="--wi:1">silent</i> <i style="--wi:2">load</i> <i style="--wi:3">is</i> <i style="--wi:4">not</i> <i style="--wi:5">a</i> <i style="--wi:6">load</i> <i style="--wi:7">of</i> <i style="--wi:8">zero.</i></blockquote>
+    <cite class="rv" style="--i:2">the correctness decision the whole system turns on</cite>
   </div>
-  <div class="steps">
-    
-      <div class="step reveal" style="--i:0">
-        <span class="step__n">1</span>
-        <span class="step__t">Telemetry</span>
-        <span class="step__d">Schema-validated, appended to the event log.</span>
+</section>
+
+<section id="loop" class="hair"><div class="wrap">
+  <div class="sticky2">
+    <div class="sticky2__label">
+      <p class="eyebrow rv">The loop</p>
+      <h2 class="w"><i style="--wi:0">Sense,</i> <i style="--wi:1">decide,</i> <i style="--wi:2">command,</i> <i style="--wi:3">acknowledge,</i> <i style="--wi:4">measure,</i> <i style="--wi:5">replan</i></h2>
+      <p class="lede rv" style="--i:1">It cannot be reduced to CRUD screens. That is the whole argument for the project.</p>
+      <div class="aside rv" style="--i:2"><p>Step 4 is deliberately paranoid. The planner is the component most likely to be subtly wrong at hour 30, and the one whose mistakes look like success.</p></div>
+    </div>
+    <div class="steps">
+      
+      <div class="step rv-left" style="--i:0">
+        <span class="step__n">01</span>
+        <div><div class="step__t">Telemetry</div><div class="step__d">Schema-validated, appended to the event log.</div></div>
       </div>
-      <div class="step reveal" style="--i:1">
-        <span class="step__n">2</span>
-        <span class="step__t">Twin</span>
-        <span class="step__d">Observed state and heartbeat age updated.</span>
+      <div class="step rv-left" style="--i:1">
+        <span class="step__n">02</span>
+        <div><div class="step__t">Twin</div><div class="step__d">Observed state and heartbeat age updated.</div></div>
       </div>
-      <div class="step reveal" style="--i:2">
-        <span class="step__n">3</span>
-        <span class="step__t">Dirty</span>
-        <span class="step__d">A cap event, device change, missing ack or timer marks the plan stale.</span>
+      <div class="step rv-left" style="--i:2">
+        <span class="step__n">03</span>
+        <div><div class="step__t">Dirty</div><div class="step__d">A cap event, device change, missing ack or timer marks the plan stale.</div></div>
       </div>
-      <div class="step reveal" style="--i:3">
-        <span class="step__n">4</span>
-        <span class="step__t">Plan</span>
-        <span class="step__d">A snapshot enters the planner. Output is independently re-validated for cap compliance.</span>
+      <div class="step rv-left" style="--i:3">
+        <span class="step__n">04</span>
+        <div><div class="step__t">Plan</div><div class="step__d">A snapshot enters the planner. Output is independently re-validated for cap compliance.</div></div>
       </div>
-      <div class="step reveal" style="--i:4">
-        <span class="step__n">5</span>
-        <span class="step__t">Command</span>
-        <span class="step__d">Versioned commands publish. The UI shows them as pending immediately.</span>
+      <div class="step rv-left" style="--i:4">
+        <span class="step__n">05</span>
+        <div><div class="step__t">Command</div><div class="step__d">Versioned commands publish. The UI shows them as pending immediately.</div></div>
       </div>
-      <div class="step reveal" style="--i:5">
-        <span class="step__n">6</span>
-        <span class="step__t">Verify</span>
-        <span class="step__d">Acks and later telemetry move pending to verified, rejected or stale.</span>
+      <div class="step rv-left" style="--i:4">
+        <span class="step__n">06</span>
+        <div><div class="step__t">Verify</div><div class="step__d">Acks and later telemetry move pending to verified, rejected or stale.</div></div>
       </div>
-      <div class="step reveal" style="--i:6">
-        <span class="step__n">7</span>
-        <span class="step__t">Replan</span>
-        <span class="step__d">Unexpected state triggers a replan and a human-readable reason code.</span>
+      <div class="step rv-left" style="--i:4">
+        <span class="step__n">07</span>
+        <div><div class="step__t">Replan</div><div class="step__d">Unexpected state triggers a replan and a human-readable reason code.</div></div>
       </div>
+    </div>
   </div>
-  <div class="aside reveal"><p>Step 4 is deliberately paranoid. The planner is the component most likely to be subtly wrong at hour 30, and the one whose mistakes look like success.</p></div>
 </div></section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track"><span>cap_reduction</span><span>cap_release</span><span>deadline_risk</span><span>protected</span><span>gateway_stale</span><span>min_run_hold</span><span>operator_protect</span><span>replan</span><span>cap_reduction</span><span>cap_release</span><span>deadline_risk</span><span>protected</span><span>gateway_stale</span><span>min_run_hold</span><span>operator_protect</span><span>replan</span></div>
+</div>
 
 <section id="protocol"><div class="wrap">
   
-  <div class="head reveal">
-    <p class="eyebrow">The contract</p>
-    <h2>Frozen before the clock starts</h2>
-    <p class="lede">Interfaces are a decision, not an implementation — which is exactly what preparation is allowed to produce.</p>
+  <div class="head" style="margin-bottom:clamp(40px,6vh,72px)">
+    <p class="eyebrow rv">The contract</p>
+    <h2 class="w"><i style="--wi:0">Frozen</i> <i style="--wi:1">before</i> <i style="--wi:2">the</i> <i style="--wi:3">clock</i> <i style="--wi:4">starts</i></h2>
+    <p class="lede rv" style="--i:1">Interfaces are a decision, not an implementation — which is exactly what preparation is allowed to produce.</p>
+    
   </div>
-  <div class="reveal"><p class="codelabel">Topics</p><pre>filament/v1/site/<i>{site_id}</i>/gateway/<i>{gateway_id}</i>/status
+  <div class="rv"><p class="codelabel">Topics</p><pre>filament/v1/site/<i>{site_id}</i>/gateway/<i>{gateway_id}</i>/status
 filament/v1/site/<i>{site_id}</i>/gateway/<i>{gateway_id}</i>/offer
 filament/v1/site/<i>{site_id}</i>/device/<i>{device_id}</i>/telemetry
 filament/v1/site/<i>{site_id}</i>/device/<i>{device_id}</i>/command
 filament/v1/site/<i>{site_id}</i>/device/<i>{device_id}</i>/ack
 filament/v1/site/<i>{site_id}</i>/event/capacity</pre></div>
   <div class="codegrid" style="margin-top:22px">
-    <div class="reveal" style="--i:1"><p class="codelabel">Telemetry</p><pre>{
+    <div class="rv" style="--i:1"><p class="codelabel">Telemetry</p><pre>{
   <b>&quot;schema&quot;</b>: &quot;filament.telemetry.v1&quot;,
   <b>&quot;message_id&quot;</b>: &quot;01J...&quot;,
   <b>&quot;gateway_id&quot;</b>: &quot;home-c&quot;,
@@ -938,7 +951,7 @@ filament/v1/site/<i>{site_id}</i>/event/capacity</pre></div>
   <b>&quot;min_run_s&quot;</b>: <i>300</i>,
   <b>&quot;ts&quot;</b>: &quot;2026-09-07T07:42:10+05:30&quot;
 }</pre></div>
-    <div class="reveal" style="--i:2"><p class="codelabel">Command</p><pre>{
+    <div class="rv" style="--i:2"><p class="codelabel">Command</p><pre>{
   <b>&quot;schema&quot;</b>: &quot;filament.command.v1&quot;,
   <b>&quot;plan_id&quot;</b>: &quot;plan-0042&quot;,
   <b>&quot;version&quot;</b>: <i>42</i>,
@@ -948,37 +961,46 @@ filament/v1/site/<i>{site_id}</i>/event/capacity</pre></div>
   <b>&quot;reason&quot;</b>: &quot;cap_reduction&quot;
 }</pre></div>
   </div>
-  <ul class="list reveal" style="--i:3;margin-top:30px"><li>Gateway status is retained, so a restarted coordinator immediately sees who exists.</li><li>Device commands are not retained. A retained command is a command that fires again at the worst possible moment.</li></ul>
+  <ul class="list rv" style="--i:3;margin-top:32px"><li>Gateway status is retained, so a restarted coordinator immediately sees who exists.</li><li>Device commands are not retained. A retained command is a command that fires again at the worst possible moment.</li></ul>
 </div></section>
 
-<section id="planner"><div class="wrap">
+<section id="planner" class="hair"><div class="wrap">
   
-  <div class="head reveal">
-    <p class="eyebrow">The planner</p>
-    <h2>Constraints first, optimisation second</h2>
+  <div class="head" style="margin-bottom:clamp(40px,6vh,72px)">
+    <p class="eyebrow rv">The planner</p>
+    <h2 class="w"><i style="--wi:0">Constraints</i> <i style="--wi:1">first,</i> <i style="--wi:2">optimisation</i> <i style="--wi:3">second</i></h2>
+    
     
   </div>
-  <div class="codegrid">
-    <div class="reveal"><p class="codelabel">Objective</p><pre>maximize   delivered utility
-         − missed-deadline penalty
-         − switching penalty
-         − household curtailment-debt penalty</pre></div>
-    <div class="reveal" style="--i:1">
-      <p class="codelabel">Subject to</p>
-      <ul class="list"><li>Σ scheduled watts in each slot ≤ site capacity for that slot</li><li>Protected devices stay on only while the hard system remains feasible</li><li>Deadline jobs receive their required slots before their deadline</li><li>Minimum run and off rules prevent oscillation</li><li>No gateway receives more than its published envelope permits</li><li>Stale or unacknowledged loads reserve conservative power until resolved</li></ul>
-    </div>
-  </div>
-  <div class="aside reveal" style="--i:2"><p>The optimiser has a hard wall-clock limit. On timeout the fallback sorts protected, then firm, then flexible, and picks flexible jobs by deadline and accumulated curtailment debt. The fallback is not the lesser path — it is the safety mechanism, which is why it gets built first and CP-SAT slots in behind the same interface.</p></div>
+  <p class="objective rv">
+    <b>maximize</b> delivered utility<br>
+    <s>−</s> missed-deadline penalty<br>
+    <s>−</s> switching penalty<br>
+    <s>−</s> household curtailment-debt penalty
+  </p>
+  <div class="rule open-x rv" style="--i:1"></div>
+  <p class="codelabel rv" style="--i:1">Subject to</p>
+  <ul class="list rv" style="--i:2"><li>Σ scheduled watts in each slot ≤ site capacity for that slot</li><li>Protected devices stay on only while the hard system remains feasible</li><li>Deadline jobs receive their required slots before their deadline</li><li>Minimum run and off rules prevent oscillation</li><li>No gateway receives more than its published envelope permits</li><li>Stale or unacknowledged loads reserve conservative power until resolved</li></ul>
+  <div class="aside rv" style="--i:3"><p>The optimiser has a hard wall-clock limit. On timeout the fallback sorts protected, then firm, then flexible, and picks flexible jobs by deadline and accumulated curtailment debt. The fallback is not the lesser path — it is the safety mechanism, which is why it gets built first and CP-SAT slots in behind the same interface.</p></div>
 </div></section>
 
-<section id="stack"><div class="wrap">
-  
-  <div class="head reveal">
-    <p class="eyebrow">The stack</p>
-    <h2>Every component has a named fallback</h2>
-    <p class="lede">Chosen for what happens when it fails, not for what it is called.</p>
+
+<section class="quote hair">
+  <div class="wrap">
+    <blockquote class="w"><i style="--wi:0">The</i> <i style="--wi:1">fallback</i> <i style="--wi:2">is</i> <i style="--wi:3">not</i> <i style="--wi:4">the</i> <i style="--wi:5">lesser</i> <i style="--wi:6">path.</i> <i style="--wi:7">It</i> <i style="--wi:8">is</i> <i style="--wi:9">the</i> <i style="--wi:10">safety</i> <i style="--wi:11">mechanism.</i></blockquote>
+    <cite class="rv" style="--i:2">why greedy is built first</cite>
   </div>
-  <table class="table reveal">
+</section>
+
+<section id="stack" class="hair"><div class="wrap">
+  
+  <div class="head" style="margin-bottom:clamp(40px,6vh,72px)">
+    <p class="eyebrow rv">The stack</p>
+    <h2 class="w"><i style="--wi:0">Every</i> <i style="--wi:1">component</i> <i style="--wi:2">has</i> <i style="--wi:3">a</i> <i style="--wi:4">named</i> <i style="--wi:5">fallback</i></h2>
+    <p class="lede rv" style="--i:1">Chosen for what happens when it fails, not for what it is called.</p>
+    
+  </div>
+  <table class="table rv">
     <thead><tr><th>Layer</th><th>Choice</th><th>Fallback if it fails</th></tr></thead>
     <tbody><tr><td>Broker</td><td>Eclipse Mosquitto (MQTT 5)</td><td>Everything on the primary laptop</td></tr><tr><td>Devices</td><td>Python + paho-mqtt emulators</td><td>One laptop, distinct gateway IDs</td></tr><tr><td>Gateway</td><td>Python agent</td><td>Fixed local policy on the last valid budget</td></tr><tr><td>Coordinator</td><td>Python asyncio</td><td>Last good plan</td></tr><tr><td>Planner</td><td>OR-Tools CP-SAT</td><td>Deterministic greedy, identical output schema</td></tr><tr><td>Schemas</td><td>Pydantic</td><td>Hand-validated minimum field set</td></tr><tr><td>Evidence</td><td>SQLite, append-only</td><td>Newline-delimited JSON</td></tr><tr><td>API</td><td>FastAPI</td><td>Console imports a read-only state adapter</td></tr><tr><td>Console</td><td>Streamlit + Plotly</td><td>Static seeded state. Never rebuild in React mid-event</td></tr><tr><td>Physical node</td><td>ESP32 + low-voltage LED</td><td>On-screen LED, same payload</td></tr></tbody>
   </table>
@@ -986,278 +1008,258 @@ filament/v1/site/<i>{site_id}</i>/event/capacity</pre></div>
 
 <section id="standards"><div class="wrap">
   
-  <div class="head reveal">
-    <p class="eyebrow">Honest scope</p>
-    <h2>MQTT, Matter and OpenADR have different jobs</h2>
-    <p class="lede">Getting this right in 45 seconds of questioning is worth more than any feature.</p>
-  </div>
-  <div class="cols">
+  <div class="head" style="margin-bottom:clamp(40px,6vh,72px)">
+    <p class="eyebrow rv">Honest scope</p>
+    <h2 class="w"><i style="--wi:0">MQTT,</i> <i style="--wi:1">Matter</i> <i style="--wi:2">and</i> <i style="--wi:3">OpenADR</i> <i style="--wi:4">have</i> <i style="--wi:5">different</i> <i style="--wi:6">jobs</i></h2>
+    <p class="lede rv" style="--i:1">Getting this right in 45 seconds of questioning is worth more than any feature.</p>
     
-      <article class="card reveal" style="--i:0">
-        <h3>MQTT<span class="badge" data-tone="ok">built</span></h3>
-        <p>The local event fabric. Lightweight publish/subscribe for machine-to-machine and IoT. Mosquitto implements MQTT 5 and 3.x. This is what we actually build on.</p>
-      </article>
-      <article class="card reveal" style="--i:1">
-        <h3>Matter<span class="badge" data-tone="warn">named future adapter</span></h3>
-        <p>A device interoperability direction, not our decision engine. Matter 1.5 added standardised energy pricing, tariff and carbon-intensity information. A future gateway adapter could translate that into FILAMENT&#39;s internal model. We do not attempt certification.</p>
-      </article>
-      <article class="card reveal" style="--i:2">
-        <h3>OpenADR<span class="badge" data-tone="warn">one illustrative fixture</span></h3>
-        <p>The upstream signal direction — demand-response price, reliability and capacity events between utilities, aggregators and control systems. The MVP uses at most one transparent OpenADR-shaped JSON fixture.</p>
-      </article>
   </div>
-  <div class="aside reveal" style="--i:3"><p>Anyone who claims more in the pitch is creating a question we cannot answer.</p></div>
+  <div class="feats">
+    
+    <article class="feat rv" style="--i:0">
+      <h3>MQTT<span class="badge" data-tone="ok">built</span></h3>
+      <p>The local event fabric. Lightweight publish/subscribe for machine-to-machine and IoT. Mosquitto implements MQTT 5 and 3.x. This is what we actually build on.</p>
+    </article>
+    <article class="feat rv" style="--i:1">
+      <h3>Matter<span class="badge" data-tone="warn">named future adapter</span></h3>
+      <p>A device interoperability direction, not our decision engine. Matter 1.5 added standardised energy pricing, tariff and carbon-intensity information. A future gateway adapter could translate that into FILAMENT&#39;s internal model. We do not attempt certification.</p>
+    </article>
+    <article class="feat rv" style="--i:2">
+      <h3>OpenADR<span class="badge" data-tone="warn">one illustrative fixture</span></h3>
+      <p>The upstream signal direction — demand-response price, reliability and capacity events between utilities, aggregators and control systems. The MVP uses at most one transparent OpenADR-shaped JSON fixture.</p>
+    </article>
+  </div>
+  <div class="aside rv" style="--i:3"><p>Anyone who claims more in the pitch is creating a question we cannot answer.</p></div>
 </div></section>
 
-<section id="acceptance"><div class="wrap">
+<section id="acceptance" class="hair"><div class="wrap">
   
-  <div class="head reveal">
-    <p class="eyebrow">Done means done</p>
-    <h2>Seven criteria, three times in a row</h2>
+  <div class="head" style="margin-bottom:clamp(40px,6vh,72px)">
+    <p class="eyebrow rv">Done means done</p>
+    <h2 class="w"><i style="--wi:0">Seven</i> <i style="--wi:1">criteria,</i> <i style="--wi:2">three</i> <i style="--wi:3">times</i> <i style="--wi:4">in</i> <i style="--wi:5">a</i> <i style="--wi:6">row</i></h2>
+    
     
   </div>
-  <ol class="ol reveal"><li>Every seeded device appears within 10 seconds of scenario start.</li><li>A cap change produces a plan within 1 second. If CP-SAT overruns, greedy answers immediately.</li><li>Observed controlled load is under the cap within 5 seconds whenever a feasible plan exists.</li><li>Commands are idempotent. Replaying one cannot toggle a device twice.</li><li>A killed gateway goes stale within its timeout, turns red, and forces a conservative replan.</li><li>If protected demand alone exceeds the cap, the system declares infeasible. It never fabricates compliance.</li><li>The same seed produces the same fallback plan and a downloadable trace.</li></ol>
+  <ol class="crit"><li class="rv-scale" style="--i:0"><span>Every seeded device appears within 10 seconds of scenario start.</span></li><li class="rv-scale" style="--i:1"><span>A cap change produces a plan within 1 second. If CP-SAT overruns, greedy answers immediately.</span></li><li class="rv-scale" style="--i:2"><span>Observed controlled load is under the cap within 5 seconds whenever a feasible plan exists.</span></li><li class="rv-scale" style="--i:0"><span>Commands are idempotent. Replaying one cannot toggle a device twice.</span></li><li class="rv-scale" style="--i:1"><span>A killed gateway goes stale within its timeout, turns red, and forces a conservative replan.</span></li><li class="rv-scale" style="--i:2"><span>If protected demand alone exceeds the cap, the system declares infeasible. It never fabricates compliance.</span></li><li class="rv-scale" style="--i:0"><span>The same seed produces the same fallback plan and a downloadable trace.</span></li></ol>
 </div></section>
 
 <section id="metrics"><div class="wrap">
   
-  <div class="head reveal">
-    <p class="eyebrow">Measured, not claimed</p>
-    <h2>What appears on screen</h2>
+  <div class="head" style="margin-bottom:clamp(40px,6vh,72px)">
+    <p class="eyebrow rv">Measured, not claimed</p>
+    <h2 class="w"><i style="--wi:0">What</i> <i style="--wi:1">appears</i> <i style="--wi:2">on</i> <i style="--wi:3">screen</i></h2>
+    
     
   </div>
-  <table class="table reveal">
+  <table class="table rv">
     <thead><tr><th>Metric</th><th>Definition</th></tr></thead>
     <tbody><tr><td>Cap compliance</td><td>% of samples at or below the limit after the grace period</td></tr><tr><td>Response time</td><td>Cap event → verified below-cap</td></tr><tr><td>Acknowledgement success</td><td>Applied acks ÷ issued commands</td></tr><tr><td>Deadline satisfaction</td><td>Flexible jobs completed by their deadline</td></tr><tr><td>Recovery time</td><td>Failed-node detection → replacement plan</td></tr><tr><td>Fairness</td><td>Jain&#39;s index over delivered ÷ requested flexible energy</td></tr></tbody>
   </table>
-  <div class="aside reveal" style="--i:1"><p>Fairness is shown only where every denominator is valid. A value near 1 means allocations were similar. It does not prove social fairness, and we do not say that it does.</p></div>
+  <div class="aside rv" style="--i:1"><p>Fairness is shown only where every denominator is valid. A value near 1 means allocations were similar. It does not prove social fairness, and we do not say that it does.</p></div>
 </div></section>
 
-<section id="team"><div class="wrap">
+<section id="team" class="hair"><div class="wrap">
   
-  <div class="head reveal">
-    <p class="eyebrow">Five people</p>
-    <h2>Everyone owns something demonstrable</h2>
-    <p class="lede">Testable output, real commit history, and a twenty-second explanation without notes.</p>
+  <div class="head" style="margin-bottom:clamp(40px,6vh,72px)">
+    <p class="eyebrow rv">Five people</p>
+    <h2 class="w"><i style="--wi:0">Everyone</i> <i style="--wi:1">owns</i> <i style="--wi:2">something</i> <i style="--wi:3">demonstrable</i></h2>
+    <p class="lede rv" style="--i:1">Testable output, real commit history, and a twenty-second explanation without notes.</p>
+    
   </div>
   
-    <div class="member reveal" style="--i:0">
-      <span class="member__n">M1</span>
-      <div>
-        <h3>Advanced builder</h3>
-        <p>Schemas, coordinator state machine, planner interface, greedy fallback, CP-SAT model, integration, technical defence.</p>
-        <p class="member__out">plan(snapshot) passes constraint tests; the command → ack → replan loop completes.</p>
-        <p class="member__when">Greedy slice h6 · CP-SAT h18 · freeze h36</p>
-      </div>
+  <div class="member rv-left" style="--i:0">
+    <span class="member__n">M1</span>
+    <div>
+      <h3>Advanced builder</h3>
+      <p>Schemas, coordinator state machine, planner interface, greedy fallback, CP-SAT model, integration, technical defence.</p>
+      <p class="member__out">plan(snapshot) passes constraint tests; the command → ack → replan loop completes.</p>
+      <p class="member__when">Greedy slice h6 · CP-SAT h18 · freeze h36</p>
     </div>
-    <div class="member reveal" style="--i:1">
-      <span class="member__n">M2</span>
-      <div>
-        <h3>Device fleet</h3>
-        <p>Config-driven emulator, 20–30 seeded profiles, heartbeat, versioned command handling, duplicate and expired tests.</p>
-        <p class="member__out">One command launches five logical homes; every node responds idempotently.</p>
-        <p class="member__when">Five nodes h4 · full fleet h10</p>
-      </div>
+  </div>
+  <div class="member rv-left" style="--i:1">
+    <span class="member__n">M2</span>
+    <div>
+      <h3>Device fleet</h3>
+      <p>Config-driven emulator, 20–30 seeded profiles, heartbeat, versioned command handling, duplicate and expired tests.</p>
+      <p class="member__out">One command launches five logical homes; every node responds idempotently.</p>
+      <p class="member__when">Five nodes h4 · full fleet h10</p>
     </div>
-    <div class="member reveal" style="--i:2">
-      <span class="member__n">M3</span>
-      <div>
-        <h3>Gateway and evidence</h3>
-        <p>Local broker, gateway aggregation and fallback policy, event logging, replay, topic and LAN monitoring.</p>
-        <p class="member__out">Replay reproduces a run; a gateway keeps its last budget when the coordinator stops.</p>
-        <p class="member__when">Broker h3 · offers h10 · replay h24</p>
-      </div>
+  </div>
+  <div class="member rv-left" style="--i:2">
+    <span class="member__n">M3</span>
+    <div>
+      <h3>Gateway and evidence</h3>
+      <p>Local broker, gateway aggregation and fallback policy, event logging, replay, topic and LAN monitoring.</p>
+      <p class="member__out">Replay reproduces a run; a gateway keeps its last budget when the coordinator stops.</p>
+      <p class="member__when">Broker h3 · offers h10 · replay h24</p>
     </div>
-    <div class="member reveal" style="--i:3">
-      <span class="member__n">M4</span>
-      <div>
-        <h3>Operations console</h3>
-        <p>The one-screen interface, the three judge controls, and legibility at projector resolution.</p>
-        <p class="member__out">A judge triggers cap, protect and failure without touching a terminal.</p>
-        <p class="member__when">Mock h6 · live h14 · frozen h34</p>
-      </div>
+  </div>
+  <div class="member rv-left" style="--i:3">
+    <span class="member__n">M4</span>
+    <div>
+      <h3>Operations console</h3>
+      <p>The one-screen interface, the three judge controls, and legibility at projector resolution.</p>
+      <p class="member__out">A judge triggers cap, protect and failure without touching a terminal.</p>
+      <p class="member__when">Mock h6 · live h14 · frozen h34</p>
     </div>
-    <div class="member reveal" style="--i:3">
-      <span class="member__n">M5</span>
-      <div>
-        <h3>Physical proof, QA and story</h3>
-        <p>The optional ESP32 node, scenario launcher, acceptance checklist, video, pitch timing. If hardware fails, owns the on-screen node.</p>
-        <p class="member__out">Scripted demo succeeds three times; backup video and evidence folder exist.</p>
-        <p class="member__when">Fallback h8 · hardware h24 or killed · demo pack h38</p>
-      </div>
+  </div>
+  <div class="member rv-left" style="--i:3">
+    <span class="member__n">M5</span>
+    <div>
+      <h3>Physical proof, QA and story</h3>
+      <p>The optional ESP32 node, scenario launcher, acceptance checklist, video, pitch timing. If hardware fails, owns the on-screen node.</p>
+      <p class="member__out">Scripted demo succeeds three times; backup video and evidence folder exist.</p>
+      <p class="member__when">Fallback h8 · hardware h24 or killed · demo pack h38</p>
     </div>
-  <div class="rule open-x reveal"></div>
-  <p class="eyebrow reveal">Dependency discipline</p>
-  <ul class="list reveal" style="--i:1"><li>M4 starts against a saved JSON fixture. The UI never waits for the backend.</li><li>M2 starts against a one-page schema and a local broker. The fleet never waits for CP-SAT.</li><li>M1 integrates a pure planner function. Network code never enters optimisation code.</li><li>M5 has a hard hardware kill point at hour 24.</li></ul>
+  </div>
+  <div class="rule open-x rv"></div>
+  <p class="eyebrow rv">Dependency discipline</p>
+  <ul class="list rv" style="--i:1"><li>M4 starts against a saved JSON fixture. The UI never waits for the backend.</li><li>M2 starts against a one-page schema and a local broker. The fleet never waits for CP-SAT.</li><li>M1 integrates a pure planner function. Network code never enters optimisation code.</li><li>M5 has a hard hardware kill point at hour 24.</li></ul>
 </div></section>
 
-<section id="timeline"><div class="wrap">
-  
-  <div class="head reveal">
-    <p class="eyebrow">48 hours</p>
-    <h2>The vertical slice comes before the good algorithm</h2>
-    <p class="lede">A working end-to-end loop with a dumb scheduler beats a brilliant scheduler with nothing to command.</p>
-  </div>
-  
-    <div class="win reveal" style="--i:0">
-      <span class="win__h">0–2 h</span>
-      <div>
+<div class="rail" id="timeline">
+  <div class="rail__stage">
+    <div class="wrap">
+      <p class="eyebrow rv">48 hours</p>
+      <h2 class="w"><i style="--wi:0">The</i> <i style="--wi:1">vertical</i> <i style="--wi:2">slice</i> <i style="--wi:3">comes</i> <i style="--wi:4">before</i> <i style="--wi:5">the</i> <i style="--wi:6">good</i> <i style="--wi:7">algorithm</i></h2>
+      <p class="lede rv" style="--i:1">A working end-to-end loop with a dumb scheduler beats a brilliant scheduler with nothing to command.</p>
+    </div>
+    <div class="rail__track">
+      
+      <article class="win">
+        <div class="win__h">0–2<small> h</small></div>
         <p class="win__o">Clean repo, issue board, frozen schemas, broker up, UI shell.</p>
         <p class="win__d">Two processes exchange a validated heartbeat and command.</p>
         <p class="win__no">CP-SAT, hardware, styling, cloud</p>
-      </div>
-    </div>
-    <div class="win reveal" style="--i:1">
-      <span class="win__h">2–6 h</span>
-      <div>
+      </article>
+      <article class="win">
+        <div class="win__h">2–6<small> h</small></div>
         <p class="win__o">Five devices, message logging, twin, deterministic priority scheduler.</p>
         <p class="win__d">A CLI cap change moves two devices. First vertical slice recorded.</p>
         <p class="win__no">Matter, OpenADR, React</p>
-      </div>
-    </div>
-    <div class="win reveal" style="--i:2">
-      <span class="win__h">6–12 h</span>
-      <div>
+      </article>
+      <article class="win">
+        <div class="win__h">6–12<small> h</small></div>
         <p class="win__o">20–30 nodes and failure modes. Five gateways and offers. Live state in the UI.</p>
         <p class="win__d">A killed device goes stale; the dashboard shows pending, then verified.</p>
         <p class="win__no">Forecasts, auth, sensor calibration</p>
-      </div>
-    </div>
-    <div class="win reveal" style="--i:3">
-      <span class="win__h">12–18 h</span>
-      <div>
+      </article>
+      <article class="win">
+        <div class="win__h">12–18<small> h</small></div>
         <p class="win__o">Deadline and fairness planner behind the interface. Idempotency tests. Replay.</p>
         <p class="win__d">Greedy and CP-SAT both produce schema-valid plans.</p>
         <p class="win__no">New device types, redesign</p>
-      </div>
-    </div>
-    <div class="win reveal" style="--i:3">
-      <span class="win__h">18–24 h</span>
-      <div>
+      </article>
+      <article class="win">
+        <div class="win__h">18–24<small> h</small></div>
         <p class="win__o">Integration and Review 1 hardening. Three scripted scenarios.</p>
         <p class="win__d">Review 1: real messages, the first complete loop. Tag a runnable checkpoint.</p>
         <p class="win__no">Anything called &quot;nice to have&quot;</p>
-      </div>
-    </div>
-    <div class="win reveal" style="--i:3">
-      <span class="win__h">24–30 h</span>
-      <div>
+      </article>
+      <article class="win">
+        <div class="win__h">24–30<small> h</small></div>
         <p class="win__o">Fault injection. Hardware go/kill decision.</p>
         <p class="win__d">The system never silently reports false compliance.</p>
         <p class="win__no">Physical debugging after the kill point</p>
-      </div>
-    </div>
-    <div class="win reveal" style="--i:3">
-      <span class="win__h">30–36 h</span>
-      <div>
+      </article>
+      <article class="win">
+        <div class="win__h">30–36<small> h</small></div>
         <p class="win__o">UX and evidence. Freeze controls. Export replay. Profile latency.</p>
         <p class="win__d">Review 2 build runs from a clean start script. Three consecutive passes.</p>
         <p class="win__no">Feature additions, library upgrades</p>
-      </div>
-    </div>
-    <div class="win reveal" style="--i:3">
-      <span class="win__h">36–42 h</span>
-      <div>
+      </article>
+      <article class="win">
+        <div class="win__h">36–42<small> h</small></div>
         <p class="win__o">Feature freeze. Backup video. Rehearse questions.</p>
         <p class="win__d">Versioned release, offline run instructions, demo under 2:50.</p>
         <p class="win__no">Refactors, aesthetic experiments</p>
-      </div>
-    </div>
-    <div class="win reveal" style="--i:3">
-      <span class="win__h">42–48 h</span>
-      <div>
+      </article>
+      <article class="win">
+        <div class="win__h">42–48<small> h</small></div>
         <p class="win__o">Bug fixes with rollback only. Rest in rotation.</p>
         <p class="win__d">Final build hash, backup, live and recorded demo options.</p>
         <p class="win__no">Schema changes, optimiser redesign</p>
-      </div>
+      </article>
     </div>
-</div></section>
+    <div class="railbar"><i></i></div>
+  </div>
+</div>
 
-<section id="demo"><div class="wrap">
+<section id="demo" class="hair"><div class="wrap">
   
-  <div class="head reveal">
-    <p class="eyebrow">Three minutes</p>
-    <h2>The judge drives the wow moment</h2>
-    <p class="lede">Not a redrawn graph — a stranger changes a number and watches real device state follow it under a hard constraint.</p>
+  <div class="head" style="margin-bottom:clamp(40px,6vh,72px)">
+    <p class="eyebrow rv">Three minutes</p>
+    <h2 class="w"><i style="--wi:0">The</i> <i style="--wi:1">judge</i> <i style="--wi:2">drives</i> <i style="--wi:3">the</i> <i style="--wi:4">wow</i> <i style="--wi:5">moment</i></h2>
+    <p class="lede rv" style="--i:1">Not a redrawn graph — a stranger changes a number and watches real device state follow it under a hard constraint.</p>
+    
   </div>
   
-    <div class="beat reveal" style="--i:0">
-      <span class="beat__t">0:00</span>
-      <span class="beat__h">Problem</span>
-      <span class="beat__d">Five homes drawing 4.6 kW against a 5 kW cap.</span>
-    </div>
-    <div class="beat reveal" style="--i:1">
-      <span class="beat__t">0:20</span>
-      <span class="beat__h">Existing failure</span>
-      <span class="beat__d">Uncoordinated mode, cap to 1.8 kW. The feeder turns red and a timer advances.</span>
-    </div>
-    <div class="beat reveal" style="--i:2">
-      <span class="beat__t">0:40</span>
-      <span class="beat__h">Insight</span>
-      <span class="beat__d">Homes keep device choices local and publish a flexibility offer instead.</span>
-    </div>
-    <div class="beat reveal" style="--i:3">
-      <span class="beat__t">1:00</span>
-      <span class="beat__h">Live demo</span>
-      <span class="beat__d">Drag the cap. Plan in under a second. Pending dots become verified ticks. The physical light changes.</span>
-    </div>
-    <div class="beat reveal" style="--i:3">
-      <span class="beat__t">1:40</span>
-      <span class="beat__h">Judge control</span>
-      <span class="beat__d">&quot;Protect this washer.&quot; The plan changes elsewhere rather than violating the cap.</span>
-    </div>
-    <div class="beat reveal" style="--i:3">
-      <span class="beat__t">1:55</span>
-      <span class="beat__h">Failure</span>
-      <span class="beat__d">Kill gateway C. Amber, then red. Conservative reserve. Another household&#39;s slot moves.</span>
-    </div>
-    <div class="beat reveal" style="--i:3">
-      <span class="beat__t">2:20</span>
-      <span class="beat__h">Technical</span>
-      <span class="beat__d">Versioned expiring commands, observed state, constraint set, deterministic fallback, all on the LAN.</span>
-    </div>
-    <div class="beat reveal" style="--i:3">
-      <span class="beat__t">2:45</span>
-      <span class="beat__h">Boundary</span>
-      <span class="beat__d">Not a certified controller. Next: one real Home Assistant household, and a hostel operator.</span>
-    </div>
+  <div class="beat rv" style="--i:0">
+    <span class="beat__t">0:00</span><span class="beat__h">Problem</span><span class="beat__d">Five homes drawing 4.6 kW against a 5 kW cap.</span>
+  </div>
+  <div class="beat rv" style="--i:1">
+    <span class="beat__t">0:20</span><span class="beat__h">Existing failure</span><span class="beat__d">Uncoordinated mode, cap to 1.8 kW. The feeder turns red and a timer advances.</span>
+  </div>
+  <div class="beat rv" style="--i:2">
+    <span class="beat__t">0:40</span><span class="beat__h">Insight</span><span class="beat__d">Homes keep device choices local and publish a flexibility offer instead.</span>
+  </div>
+  <div class="beat rv" style="--i:3">
+    <span class="beat__t">1:00</span><span class="beat__h">Live demo</span><span class="beat__d">Drag the cap. Plan in under a second. Pending dots become verified ticks. The physical light changes.</span>
+  </div>
+  <div class="beat rv" style="--i:4">
+    <span class="beat__t">1:40</span><span class="beat__h">Judge control</span><span class="beat__d">&quot;Protect this washer.&quot; The plan changes elsewhere rather than violating the cap.</span>
+  </div>
+  <div class="beat rv" style="--i:4">
+    <span class="beat__t">1:55</span><span class="beat__h">Failure</span><span class="beat__d">Kill gateway C. Amber, then red. Conservative reserve. Another household&#39;s slot moves.</span>
+  </div>
+  <div class="beat rv" style="--i:4">
+    <span class="beat__t">2:20</span><span class="beat__h">Technical</span><span class="beat__d">Versioned expiring commands, observed state, constraint set, deterministic fallback, all on the LAN.</span>
+  </div>
+  <div class="beat rv" style="--i:4">
+    <span class="beat__t">2:45</span><span class="beat__h">Boundary</span><span class="beat__d">Not a certified controller. Next: one real Home Assistant household, and a hostel operator.</span>
+  </div>
 </div></section>
 
 <section id="failure"><div class="wrap">
   
-  <div class="head reveal">
-    <p class="eyebrow">Failure proofing</p>
-    <h2>Every failure has a rehearsed answer</h2>
+  <div class="head" style="margin-bottom:clamp(40px,6vh,72px)">
+    <p class="eyebrow rv">Failure proofing</p>
+    <h2 class="w"><i style="--wi:0">Every</i> <i style="--wi:1">failure</i> <i style="--wi:2">has</i> <i style="--wi:3">a</i> <i style="--wi:4">rehearsed</i> <i style="--wi:5">answer</i></h2>
+    
     
   </div>
-  <table class="table reveal">
+  <table class="table rv">
     <thead><tr><th>Failure</th><th>Live fallback</th><th>Stored fallback</th></tr></thead>
     <tbody><tr><td>Internet unavailable</td><td>Nothing changes. Broker, planner, UI and devices are all on the LAN.</td><td>Local wheel cache, offline run instructions</td></tr><tr><td>ESP32 unavailable</td><td>On-screen LED device using the same MQTT payload.</td><td>Video of an earlier run, labelled as recorded</td></tr><tr><td>ESP32 dies mid-demo</td><td>Use it as the planned failure demonstration. Replan.</td><td>Replay trace</td></tr><tr><td>Team laptop dies</td><td>Launch that gateway&#39;s IDs on the primary laptop.</td><td>Single-laptop profile</td></tr></tbody>
   </table>
-  <div class="aside reveal" style="--i:1"><p>A hardware failure during a live demo is either a disaster or the exact thing you were about to demonstrate on purpose. Which one depends entirely on whether you rehearsed it.</p></div>
+  <div class="aside rv" style="--i:1"><p>A hardware failure during a live demo is either a disaster or the exact thing you were about to demonstrate on purpose. Which one depends entirely on whether you rehearsed it.</p></div>
 </div></section>
 
-<section id="rules"><div class="wrap">
+
+<section class="quote hair">
+  <div class="wrap">
+    <blockquote class="w"><i style="--wi:0">It</i> <i style="--wi:1">declares</i> <i style="--wi:2">infeasible.</i> <i style="--wi:3">It</i> <i style="--wi:4">never</i> <i style="--wi:5">fabricates</i> <i style="--wi:6">compliance.</i></blockquote>
+    <cite class="rv" style="--i:2">acceptance criterion six</cite>
+  </div>
+</section>
+
+<section id="rules" class="hair"><div class="wrap">
   
-  <div class="head reveal">
-    <p class="eyebrow">The rules</p>
-    <h2>This site is preparation. The code is not written yet.</h2>
+  <div class="head" style="margin-bottom:clamp(40px,6vh,72px)">
+    <p class="eyebrow rv">The rules</p>
+    <h2 class="w"><i style="--wi:0">This</i> <i style="--wi:1">site</i> <i style="--wi:2">is</i> <i style="--wi:3">preparation.</i> <i style="--wi:4">The</i> <i style="--wi:5">code</i> <i style="--wi:6">is</i> <i style="--wi:7">not</i> <i style="--wi:8">written</i> <i style="--wi:9">yet.</i></h2>
+    
     
   </div>
-  <div class="reveal"><p>Code2Create requires the project to be built during the event, from scratch, with no prior commits or reused code. That conflicts with wanting a warm repository on day one, and the rules win.</p><p>Not because getting caught would be embarrassing, but because a team that has to be vague about its commit history cannot answer the question judges always ask: who wrote this part?</p></div>
-  <div class="split" style="margin-top:34px">
-    <div class="reveal" style="--i:1">
-      <h3 style="color:var(--ok)">Preparation may produce</h3>
-      <ul class="list" data-tone="yes"><li>Understanding — skills, vocabulary, rehearsed explanations</li><li>Paper and interface specifications — the topic contract, payload fields, planner input and output</li><li>Disposable exercises — written, understood, then deleted</li><li>Logistics and process — role cards, kill points, branch routine</li><li>Non-product artefacts — the plans, the brand, this site</li></ul>
-    </div>
-    <div class="reveal" style="--i:2">
-      <h3 style="color:var(--bad)">It may not produce</h3>
-      <ul class="list" data-tone="no"><li>Final project code</li><li>Prior commits</li><li>Reusable project modules</li><li>Pre-generated implementation</li><li>A warm skeleton to git init over</li></ul>
-    </div>
+  <div class="rv"><p>Code2Create requires the project to be built during the event, from scratch, with no prior commits or reused code. That conflicts with wanting a warm repository on day one, and the rules win.</p><p>Not because getting caught would be embarrassing, but because a team that has to be vague about its commit history cannot answer the question judges always ask: who wrote this part?</p></div>
+  <div class="split" style="margin-top:38px">
+    <div class="rv" style="--i:1"><h3 style="color:var(--ok)">Preparation may produce</h3>
+      <ul class="list" data-tone="yes"><li>Understanding — skills, vocabulary, rehearsed explanations</li><li>Paper and interface specifications — the topic contract, payload fields, planner input and output</li><li>Disposable exercises — written, understood, then deleted</li><li>Logistics and process — role cards, kill points, branch routine</li><li>Non-product artefacts — the plans, the brand, this site</li></ul></div>
+    <div class="rv" style="--i:2"><h3 style="color:var(--bad)">It may not produce</h3>
+      <ul class="list" data-tone="no"><li>Final project code</li><li>Prior commits</li><li>Reusable project modules</li><li>Pre-generated implementation</li><li>A warm skeleton to git init over</li></ul></div>
   </div>
-  <div class="aside reveal" style="--i:3"><p>The architecture in the repository is empty directories and .gitkeep files, and that is the point. A frozen layout is a decision in the same category as the topic contract — it records the shape without pre-building any of it. On the day, the team creates a clean repository and fills that shape in fast, because the arguing was done in advance.</p></div>
+  <div class="aside rv" style="--i:3"><p>The architecture in the repository is empty directories and .gitkeep files, and that is the point. A frozen layout is a decision in the same category as the topic contract — it records the shape without pre-building any of it. On the day, the team creates a clean repository and fills that shape in fast, because the arguing was done in advance.</p></div>
 </div></section>
-
 </main>
 <footer><div class="wrap foot">
   <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 354 64" role="img" aria-label="Filament">
@@ -1288,142 +1290,468 @@ filament/v1/site/<i>{site_id}</i>/event/capacity</pre></div>
 </svg>
 </div>
   <div class="foot__meta">
-    Code2Create 7.0 · ACM-VIT · graVITas &#39;26<br>
-    Anna Auditorium, VIT Vellore<br>
+    Code2Create 7.0 · ACM-VIT · graVITas &#39;26<br>Anna Auditorium, VIT Vellore<br>
     Preparation repository · implementation begins at the starting gun
   </div>
 </div></footer>
-<script>/* FILAMENT OS — scroll behaviour.
+<script src="three.min.js"></script>
+<script>/* The hero figure.
  *
- * Two independent systems:
- *   1. a pinned hero whose numbers are scrubbed by scroll position, so the
- *      first screen performs the demand-response demo instead of describing it;
- *   2. reveal-on-enter for everything below it.
+ * Thirty devices, arranged as a helix and stacked cumulatively: each node sits
+ * at the running total of every device below it, so the top of the coil IS the
+ * site load. A translucent disc is the cap. When demand exceeds it the coil
+ * pushes through the disc and runs hot.
  *
- * No dependencies, no layout thrash: reads happen in one rAF pass, writes are
- * CSS custom properties and data attributes.
+ * It is the logo — one wire, coiled — drawn out of live numbers, and it is the
+ * same measurement the 2D fallback makes. Nothing here is decoration.
+ */
+(() => {
+  "use strict";
+
+  const host = document.getElementById("stage3d");
+  if (!host || typeof THREE === "undefined") return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const SCENES = JSON.parse(document.getElementById("scene-data").textContent);
+  const N_GW = 5;
+  const PER_GW = 6;
+  const N = N_GW * PER_GW;
+  // How each household's draw splits across its six devices. Fixed, so a change
+  // in the coil is always a change in the numbers, never in the arrangement.
+  const SHARE = [0.3, 0.24, 0.18, 0.12, 0.09, 0.07];
+
+  const TURNS = 2.6;
+  const RADIUS = 2.05;
+  const Y_PER_KW = 0.92;     // world units per kW of cumulative load
+  const RESERVE_KW = 0.34;   // held for a household we can no longer hear
+
+  const COLD = new THREE.Color("#4a5568");
+  const WARM = new THREE.Color("#ff9f45");
+  const HOT = new THREE.Color("#ff5a5a");
+  const SIGNAL = new THREE.Color("#7cc4ff");
+  const STALE = new THREE.Color("#ffc46b");
+
+  /* ------------------------------------------------------------- scaffold */
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x08070a, 0.055);
+
+  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  host.appendChild(renderer.domElement);
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.16));
+  const key = new THREE.PointLight(0xffb45c, 9, 40);
+  key.position.set(-6, 9, 7);
+  scene.add(key);
+  const rim = new THREE.PointLight(0x7cc4ff, 7, 40);
+  rim.position.set(8, 3, -6);
+  scene.add(rim);
+
+  const floor = new THREE.GridHelper(26, 26, 0x2a2433, 0x18141f);
+  floor.position.y = -0.02;
+  scene.add(floor);
+
+  /* ------------------------------------------------------------------ coil */
+
+  const tubeMat = new THREE.MeshStandardMaterial({
+    color: new THREE.Color("#2e1c0e"), emissive: WARM.clone(), emissiveIntensity: 0.55,
+    roughness: 1, metalness: 0,
+  });
+  let tube = null;
+
+  const nodeGeo = new THREE.SphereGeometry(0.098, 16, 12);
+  const nodes = [];
+  for (let i = 0; i < N; i++) {
+    const m = new THREE.Mesh(nodeGeo, new THREE.MeshStandardMaterial({
+      color: new THREE.Color("#3a2415"), emissive: WARM.clone(), emissiveIntensity: 0.9,
+      roughness: 1, metalness: 0,
+    }));
+    nodes.push(m);
+    scene.add(m);
+  }
+
+  /* ------------------------------------------------------------- cap plane */
+
+  const capDisc = new THREE.Mesh(
+    new THREE.CircleGeometry(3.4, 64),
+    new THREE.MeshBasicMaterial({
+      color: SIGNAL, transparent: true, opacity: 0.045,
+      side: THREE.DoubleSide, depthWrite: false,
+    })
+  );
+  capDisc.rotation.x = -Math.PI / 2;
+  scene.add(capDisc);
+
+  const capRing = new THREE.Mesh(
+    new THREE.RingGeometry(3.36, 3.42, 96),
+    new THREE.MeshBasicMaterial({
+      color: SIGNAL, transparent: true, opacity: 0.55,
+      side: THREE.DoubleSide, depthWrite: false,
+    })
+  );
+  capRing.rotation.x = -Math.PI / 2;
+  scene.add(capRing);
+
+  /* -------------------------------------------------------------- geometry */
+
+  // Angle and radius are fixed per device; only height ever moves.
+  const angle = (i) => (i / (N - 1)) * TURNS * Math.PI * 2;
+
+  function points(perDevice) {
+    const out = [];
+    let cumulative = 0;
+    for (let i = 0; i < N; i++) {
+      cumulative += perDevice[i];
+      const a = angle(i);
+      // radius eases inward as the coil climbs, so the top reads as a point
+      const r = RADIUS * (1 - 0.12 * (i / (N - 1)));
+      out.push(new THREE.Vector3(Math.cos(a) * r, cumulative * Y_PER_KW, Math.sin(a) * r));
+    }
+    return out;
+  }
+
+  function rebuild(pts) {
+    if (tube) { scene.remove(tube); tube.geometry.dispose(); }
+    const curve = new THREE.CatmullRomCurve3([new THREE.Vector3(pts[0].x, 0, pts[0].z), ...pts]);
+    tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 130, 0.075, 8, false), tubeMat);
+    scene.add(tube);
+  }
+
+  /* ----------------------------------------------------------------- state */
+
+  const clamp = (v, a = 0, b = 1) => (v < a ? a : v > b ? b : v);
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const draw = (v) => (v === null ? RESERVE_KW : v);
+
+  const target = new Array(N).fill(0);
+  const shown = new Array(N).fill(0);
+  const staleGw = new Array(N_GW).fill(false);
+  let targetCap = 5;
+  let shownCap = 5;
+
+  function readScenes(p) {
+    const t = p * SCENES.length;
+    const i = Math.min(Math.floor(t), SCENES.length - 1);
+    const next = Math.min(i + 1, SCENES.length - 1);
+    const k = ease(clamp((t - i - 0.45) / 0.55));
+
+    const a = SCENES[i], b = SCENES[next];
+    const cap = lerp(a.cap, b.cap, k);
+
+    for (let g = 0; g < N_GW; g++) {
+      const av = a.homes[g], bv = b.homes[g];
+      const home = lerp(draw(av), draw(bv), k);
+      staleGw[g] = ((k > 0.5 ? bv : av) === null);
+      for (let d = 0; d < PER_GW; d++) target[g * PER_GW + d] = home * SHARE[d];
+    }
+
+    targetCap = cap;
+  }
+
+  function draw3d() {
+    // chase, don't snap
+    let delta = Math.abs(shownCap - targetCap);
+    shownCap += (targetCap - shownCap) * 0.09;
+    let total = 0;
+    for (let i = 0; i < N; i++) {
+      delta = Math.max(delta, Math.abs(shown[i] - target[i]));
+      shown[i] += (target[i] - shown[i]) * 0.09;
+      total += shown[i];
+    }
+
+    const pts = points(shown);
+    if (delta > 0.0006 || !tube) rebuild(pts);
+
+    const cap = shownCap;
+    const capY = cap * Y_PER_KW;
+    capDisc.position.y = capY;
+    capRing.position.y = capY;
+
+    // The coil runs hot when the site is over its limit.
+    const over = clamp((total - cap) / cap);
+    tubeMat.color.copy(COLD).lerp(WARM, 0.45).lerp(HOT, over * 0.7);
+    tubeMat.emissive.copy(WARM).lerp(HOT, over);
+    tubeMat.emissiveIntensity = 0.24 + over * 0.4;
+
+    for (let i2 = 0; i2 < N; i2++) {
+      const n = nodes[i2];
+      n.position.copy(pts[i2]);
+      const above = pts[i2].y > capY;
+      const gwStale = staleGw[Math.floor(i2 / PER_GW)];
+      const c = gwStale ? STALE : above ? HOT : WARM;
+      n.material.color.copy(c);
+      n.material.emissive.copy(c);
+      n.material.emissiveIntensity = gwStale ? 0.5 : above ? 1.5 : 0.85;
+      n.scale.setScalar(gwStale ? 0.7 : above ? 1.25 : 1);
+    }
+
+    key.color.copy(WARM).lerp(HOT, over);
+    key.intensity = 8 + over * 9;
+  }
+
+  /* ------------------------------------------------------------------ loop */
+
+  const journey = document.querySelector(".journey");
+  const stage = document.querySelector(".stage");
+
+  function progress() {
+    if (!journey || !stage) return 0;
+    const span = journey.offsetHeight - stage.offsetHeight;
+    return clamp((scrollY - journey.offsetTop) / (span || 1));
+  }
+
+  let dist = 8.4;
+
+  function resize() {
+    const w = host.clientWidth, h = host.clientHeight;
+    if (!w || !h) return;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+
+    // A tall narrow viewport crops horizontally, so the coil has to move away.
+    // The copy also stacks below the figure there, so stop biasing it sideways.
+    dist = camera.aspect < 1.05 ? 13 : 8.4;
+  }
+
+  let raf = 0;
+  function frame(ms) {
+    raf = requestAnimationFrame(frame);
+
+    const p = progress();
+    readScenes(p);
+    draw3d();
+
+    // slow orbit, plus a gentle rise as the story descends
+    const exit = ease(clamp((p - 0.84) / 0.16));
+    renderer.domElement.style.opacity = (1 - exit * 0.92).toFixed(3);
+
+    const a = ms * 0.00006 + p * 1.4;
+    // rise and pull back through the hand-off, so the coil recedes downward
+    // height is now relative to what we are looking at, so the framing holds
+    const height = 2.6 + p * 1.6 + exit * 4.5;
+    const d = dist + exit * 3;
+    const aimY = 1.75 + p * 0.45 - exit * 1.2;
+    camera.position.set(Math.cos(a) * d, aimY + height, Math.sin(a) * d);
+    camera.lookAt(0, aimY, 0);
+
+    renderer.render(scene, camera);
+  }
+
+  addEventListener("resize", resize, { passive: true });
+  resize();
+  readScenes(0);
+  shownCap = targetCap;
+  for (let i = 0; i < N; i++) shown[i] = target[i];
+  draw3d();
+  raf = requestAnimationFrame(frame);
+
+  // Stop rendering entirely when the hero is off-screen. A WebGL loop running
+  // behind fourteen sections of prose is just heat.
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !raf) raf = requestAnimationFrame(frame);
+      else if (!e.isIntersecting && raf) { cancelAnimationFrame(raf); raf = 0; }
+    }, { threshold: 0 }).observe(stage || host);
+  }
+
+  host.dataset.ready = "true";
+  document.documentElement.classList.add("has-3d");
+})();
+</script>
+<script>/* FILAMENT OS — interaction.
+ *
+ * Five independent systems, none of which touch layout:
+ *   1. reveal on enter, in four flavours, with per-child stagger
+ *   2. the pinned hero, scrubbed by scroll position (the 3D figure reads the
+ *      same progress separately, in scene3d.js)
+ *   3. the horizontal timeline rail, also scrubbed
+ *   4. numbers that count up when you reach them
+ *   5. read progress, and a cursor-tracked glow
+ *
+ * All writes are CSS custom properties, data attributes or transforms.
  */
 (() => {
   "use strict";
 
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const clamp = (v, a = 0, b = 1) => (v < a ? a : v > b ? b : v);
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
-  /* ------------------------------------------------------ reveal on enter */
+  /* ------------------------------------------------------------- 1. reveal */
 
-  const targets = document.querySelectorAll(".reveal, .open-y, .open-x");
+  const REVEALS = ".rv, .rv-left, .rv-scale, .open-y, .open-x, .w, [data-count]";
+  const targets = document.querySelectorAll(REVEALS);
 
   if (reduced || !("IntersectionObserver" in window)) {
-    targets.forEach((el) => el.classList.add("in"));
+    targets.forEach((el) => {
+      el.classList.add("in");
+      if (el.dataset.count) el.textContent = el.dataset.count;
+    });
   } else {
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
           if (!e.isIntersecting) continue;
           e.target.classList.add("in");
+          if (e.target.dataset.count) countUp(e.target);
           io.unobserve(e.target);
         }
       },
       // threshold stays near zero: an element taller than the viewport can never
-      // reach a large fraction of *itself*, and several tables are exactly that.
-      { rootMargin: "0px 0px -12% 0px", threshold: 0.01 }
+      // reach a large fraction of *itself*, and several tables are exactly that
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.01 }
     );
     targets.forEach((el) => io.observe(el));
   }
 
-  /* ------------------------------------------------------- the pinned hero */
+  /* ----------------------------------------------------------- 4. count up */
+
+  function countUp(el) {
+    const to = parseFloat(el.dataset.count);
+    const from = parseFloat(el.dataset.from ?? "0");
+    const dp = parseInt(el.dataset.decimals ?? "0", 10);
+    const start = performance.now();
+    const ms = 1300;
+
+    (function step(now) {
+      const t = clamp((now - start) / ms);
+      el.textContent = lerp(from, to, ease(t)).toFixed(dp);
+      if (t < 1) requestAnimationFrame(step);
+    })(start);
+  }
+
+  /* ------------------------------------------------------ 5. read progress */
+
+  const bar = document.querySelector(".progress");
+  const glow = document.querySelector(".cursorglow");
+
+  if (glow && matchMedia("(pointer: fine)").matches && !reduced) {
+    document.documentElement.classList.add("has-pointer");
+    addEventListener("pointermove", (e) => {
+      glow.style.setProperty("--mx", e.clientX + "px");
+      glow.style.setProperty("--my", e.clientY + "px");
+    }, { passive: true });
+  }
+
+  /* --------------------------------------------------------- 2. the hero */
 
   const journey = document.querySelector(".journey");
   const stage = document.querySelector(".stage");
-  if (!journey || !stage || reduced) return;
+  const railWrap = document.querySelector(".rail");
+  const railStage = document.querySelector(".rail__stage");
+  const railTrack = document.querySelector(".rail__track");
+  const railBar = document.querySelector(".railbar");
 
-  const SCENES = JSON.parse(document.getElementById("scene-data").textContent);
-  const N = SCENES.length;
-  const SCALE = 5.4; // kW of full meter width
-  const RESERVE = 0.34; // kW held back for a gateway we can no longer hear
+  let heroPaint = () => {};
 
-  const chart = document.querySelector(".chart");
-  const capline = document.querySelector(".capline");
-  const note = document.querySelector(".chart__note");
-  const titlecard = document.querySelector(".titlecard");
-  const segs = [...document.querySelectorAll(".seg")];
-  const gws = [...document.querySelectorAll(".gw")];
-  const sceneEls = [...document.querySelectorAll(".scene")];
-  const ticks = [...document.querySelectorAll(".tick")];
+  if (journey && stage && !reduced) {
+    const SCENES = JSON.parse(document.getElementById("scene-data").textContent);
+    const N = SCENES.length;
+    const SCALE = 5.4;
+    const RESERVE = 0.34;
 
-  const clamp = (v, a = 0, b = 1) => (v < a ? a : v > b ? b : v);
-  const lerp = (a, b, t) => a + (b - a) * t;
-  // slow in, slow out — the "opening" feel, applied to the scrub as well
-  const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const chart = document.querySelector(".chart");
+    const capline = document.querySelector(".capline");
+    const note = document.querySelector(".chart__note");
+    const status = document.querySelector(".chart__status");
+    const total = document.querySelector(".readout__total");
+    const capkw = document.querySelector(".readout__capkw");
+    const LABEL = { ok: "nominal", over: "overload", planning: "planning", degraded: "degraded" };
+    const titlecard = document.querySelector(".titlecard");
+    const segs = [...document.querySelectorAll(".seg")];
+    const gws = [...document.querySelectorAll(".gw")];
+    const sceneEls = [...document.querySelectorAll(".scene")];
+    const ticks = [...document.querySelectorAll(".tick")];
 
-  // A null draw means the gateway went silent. It is not zero: the coordinator
-  // holds a conservative reserve for it, which is the point of the whole scene.
-  const draw = (v) => (v === null ? RESERVE : v);
+    // A null draw is a household we can no longer hear. Not zero — the
+    // coordinator holds a conservative reserve, and that is the whole point.
+    const draw = (v) => (v === null ? RESERVE : v);
+    let active = -1;
 
-  let active = -1;
+    heroPaint = () => {
+      const span = journey.offsetHeight - stage.offsetHeight;
+      const p = clamp((scrollY - journey.offsetTop) / (span || 1));
+
+      titlecard.style.setProperty("--title-o", String(clamp(1 - p / 0.07)));
+      // the last 16% of the journey lifts the hero out of the way
+      stage.style.setProperty("--exit", ease(clamp((p - 0.84) / 0.16)).toFixed(4));
+
+      const t = p * N;
+      const i = Math.min(Math.floor(t), N - 1);
+      const next = Math.min(i + 1, N - 1);
+      const k = ease(clamp((t - i - 0.45) / 0.55));
+
+      const a = SCENES[i], b = SCENES[next];
+      const shown = k > 0.5 ? b : a;
+      const cap = lerp(a.cap, b.cap, k);
+      let drawn = 0;
+
+      for (let j = 0; j < segs.length; j++) {
+        const av = a.homes[j], bv = b.homes[j];
+        const v = lerp(draw(av), draw(bv), k);
+        const stale = (k > 0.5 ? bv : av) === null;
+        drawn += v;
+
+        segs[j].style.setProperty("--w", (v / SCALE).toFixed(4));
+        segs[j].dataset.stale = String(stale);
+
+        const gw = gws[j];
+        gw.dataset.stale = String(stale);
+        gw.querySelector(".gw__fill").style.setProperty("--w", (v / 1.4).toFixed(4));
+        gw.querySelector(".gw__kw").textContent = v.toFixed(2);
+        gw.querySelector(".gw__st").textContent = stale ? "stale"
+          : shown.status === "over" ? "over"
+          : shown.status === "planning" ? "offer" : "ok";
+      }
+
+      capline.style.setProperty("--cap", (cap / SCALE).toFixed(4));
+      capline.dataset.kw = cap.toFixed(2);
+      total.textContent = drawn.toFixed(2);
+      capkw.textContent = cap.toFixed(2);
+      chart.dataset.status = shown.status;
+      status.textContent = LABEL[shown.status] ?? shown.status;
+      note.textContent = shown.note;
+
+      if (i !== active) {
+        active = i;
+        sceneEls.forEach((el, n) => (el.dataset.active = String(n === i)));
+        ticks.forEach((el, n) => (el.dataset.on = String(n <= i)));
+      }
+    };
+  }
+
+  /* ----------------------------------------------------------- 3. the rail */
+
+  let railPaint = () => {};
+
+  if (railWrap && railStage && railTrack && !reduced) {
+    railPaint = () => {
+      const span = railWrap.offsetHeight - railStage.offsetHeight;
+      const p = clamp((scrollY - railWrap.offsetTop) / (span || 1));
+      // how far the track must travel for its last card to reach the right edge
+      const travel = Math.max(0, railTrack.scrollWidth - innerWidth);
+      railTrack.style.setProperty("--rail", (p * travel).toFixed(1));
+      if (railBar) railBar.style.setProperty("--railp", p.toFixed(4));
+    };
+  }
+
+  /* ------------------------------------------------------------- the loop */
+
   let queued = false;
 
   function paint() {
     queued = false;
-
-    const top = journey.offsetTop;
-    const span = journey.offsetHeight - stage.offsetHeight;
-    const p = clamp((window.scrollY - top) / (span || 1));
-
-    // title card lifts away over the first slice of the journey
-    titlecard.style.setProperty("--title-o", String(clamp(1 - p / 0.075)));
-
-    // each scene holds, then transitions into the next
-    const t = p * N;
-    const i = Math.min(Math.floor(t), N - 1);
-    const next = Math.min(i + 1, N - 1);
-    const local = t - i;
-    const k = ease(clamp((local - 0.55) / 0.45));
-
-    const a = SCENES[i];
-    const b = SCENES[next];
-    const shown = k > 0.5 ? b : a;
-
-    const cap = lerp(a.cap, b.cap, k);
-    let total = 0;
-
-    for (let j = 0; j < segs.length; j++) {
-      const av = a.homes[j];
-      const bv = b.homes[j];
-      const v = lerp(draw(av), draw(bv), k);
-      const stale = (k > 0.5 ? bv : av) === null;
-      total += v;
-
-      segs[j].style.setProperty("--w", (v / SCALE).toFixed(4));
-      segs[j].dataset.stale = String(stale);
-
-      const gw = gws[j];
-      gw.dataset.stale = String(stale);
-      gw.querySelector(".gw__fill").style.setProperty("--w", (v / 1.4).toFixed(4));
-      gw.querySelector(".gw__kw").textContent = v.toFixed(2) + " kW";
-      gw.querySelector(".gw__st").textContent = stale
-        ? "stale"
-        : shown.status === "over"
-        ? "over"
-        : shown.status === "planning"
-        ? "offer"
-        : "ok";
+    if (bar) {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      bar.style.setProperty("--read", clamp(scrollY / (max || 1)).toFixed(4));
     }
-
-    capline.style.setProperty("--cap", (cap / SCALE).toFixed(4));
-    capline.dataset.kw = cap.toFixed(2);
-
-    chart.dataset.status = shown.status;
-    note.textContent = shown.note;
-
-    // the ambient glow tracks how far over the limit we are
-    const over = clamp((total - cap) / cap);
-    stage.style.setProperty("--heat", over.toFixed(3));
-
-    if (i !== active) {
-      active = i;
-      sceneEls.forEach((el, n) => (el.dataset.active = String(n === i)));
-      ticks.forEach((el, n) => (el.dataset.on = String(n <= i)));
-    }
+    heroPaint();
+    railPaint();
   }
 
   const onScroll = () => {
