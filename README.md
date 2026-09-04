@@ -243,18 +243,5 @@ Any other static host works the same way: build, then serve
 | [06-demo.md](plans/06-demo.md) | Review 1, Review 2, the three-minute demo, failure proofing |
 | [07-rules.md](plans/07-rules.md) | The from-scratch rule and what preparation may legally produce |
 
-## Open right now
-
-- ⚠️ **Event dates are unresolved.** The graVITas page says 6–8 September; ACM-VIT's
-  promotional post says 7–9. Plan logistics for the 6th until an organiser corrects it.
-- ⚠️ **Confirm the idea-submission deadline.** Internal was quoted as 4 September,
-  23:59. If the team is registered, submit through the portal now.
-- **Ask the organisers what "from scratch" permits** — specifically whether data
-  fixtures and configuration sheets count as pre-built material.
-- **Borrow, don't depend on, an ESP32.** The entire judged path must work with
-  software nodes alone.
-
----
-
 Built for [Code2Create 7.0](https://code2create.acmvit.in/), ACM-VIT · graVITas '26 ·
 Anna Auditorium, VIT Vellore.
